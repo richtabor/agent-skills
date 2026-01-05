@@ -1,6 +1,6 @@
 ---
 name: accessibility-review
-description: Conducts manual accessibility reviews of UI components, pages, and applications against WCAG 2.1/2.2 Level AA standards. Triggers when users ask questions like "Is this accessible?", "Can you review the color contrast?", or request accessibility checks. Provides prioritized findings (Critical/Warning) focused on practical, modern web accessibility standards.
+description: Reviews UI for accessibility issues against WCAG 2.1/2.2 AA. Triggers on "is this accessible?", "check accessibility", or contrast/a11y review requests.
 ---
 
 # Accessibility Review
@@ -60,25 +60,86 @@ Classify each issue as:
 - Missing skip links
 - Non-descriptive error messages
 
-### 4. Present Findings
+### 4. Stepped Review (One Issue at a Time)
 
-Structure the report as:
+**IMPORTANT**: Do NOT present all findings at once. Review issues one at a time, waiting for user decision before proceeding.
+
+**4.1 Start with Overview**
+
+Begin by telling the user how many issues were found:
 
 ```
-## Accessibility Review
+Found [X] accessibility issues ([Y] critical, [Z] warnings).
 
-### Critical Issues
-1. [Issue description with location reference]
-   - Impact: [How this affects users]
-   - Fix: [Specific recommendation]
+Let's review them one at a time. I'll present each issue with a recommended fix, and you can decide to:
+- **Fix** — I'll implement the change
+- **Ignore** — Tell me why, and I'll note it
 
-### Warnings
-1. [Issue description with location reference]
-   - Impact: [How this affects users]
-   - Fix: [Specific recommendation]
+Starting with critical issues first.
+```
 
-### Summary
-[Brief overview of findings and general recommendations]
+**4.2 Present Each Issue**
+
+For each issue, present ONE at a time using this format:
+
+```
+───────────────────────────────────
+Issue [1/X]: [Critical/Warning]
+───────────────────────────────────
+
+**Problem**: [Clear description of the issue]
+
+**Location**: `file_path:line_number`
+[Show the relevant code snippet]
+
+**Impact**: [How this affects users — be specific about who and how]
+
+**Recommended Fix**:
+[Specific code change or approach]
+
+───────────────────────────────────
+Fix this issue, or ignore? (If ignoring, please share why)
+```
+
+**4.3 Handle User Response**
+
+**If user says "fix":**
+1. Implement the fix
+2. Confirm: "Fixed. [Brief description of what changed]"
+3. Move to next issue
+
+**If user says "ignore" with reason:**
+1. Acknowledge: "Noted — ignoring because: [their reason]"
+2. Track the decision (see 4.4)
+3. Move to next issue
+
+**If user says "ignore" without reason:**
+1. Ask: "Got it. Quick note on why? (Helps for future reference)"
+2. Accept any response and move on
+
+**4.4 Track Decisions**
+
+Keep a running tally as you go through issues. After all issues are reviewed, present a summary.
+
+### 5. Final Summary
+
+After reviewing all issues, present a summary:
+
+```
+## Accessibility Review Complete
+
+**Reviewed**: [X] issues ([Y] critical, [Z] warnings)
+
+### Fixed ([N])
+- [Issue description] — `file:line`
+- [Issue description] — `file:line`
+
+### Ignored ([N])
+- [Issue description] — Reason: [user's reason]
+- [Issue description] — Reason: [user's reason]
+
+### Remaining Concerns
+[Any patterns noticed, suggestions for future, or issues that were ignored but warrant reconsideration]
 ```
 
 ## Review Guidelines
