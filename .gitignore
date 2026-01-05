@@ -23,6 +23,7 @@ Thumbs.db
 
 # Skill outputs
 .blog/
+.social/
 
 # Development tooling
 .system/
