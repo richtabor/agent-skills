@@ -14,6 +14,7 @@ Write technical blog posts about features you're building. This skill analyzes y
 - Analyzes git history and code to understand what was built
 - Applies strict anti-AI-pattern rules (no "dive into", "leverage", etc.)
 - Uses your personal voice from the style guide
+- Uses sentence case for titles and headings (configurable)
 - Saves posts with consistent naming to `.blog/`
 - Optionally publishes drafts to WordPress
 
@@ -51,6 +52,10 @@ Create `.env.local` in this directory (it's gitignored):
 WORDPRESS_URL="https://yourblog.com"
 WORDPRESS_USERNAME="your_username"
 WORDPRESS_APP_PASSWORD="xxxx xxxx xxxx xxxx"
+
+# Optional: Title and heading casing (defaults to "sentence")
+TITLE_CASE_STYLE="sentence"  # Options: "sentence" or "title"
+HEADING_CASE_STYLE="sentence"  # Options: "sentence" or "title"
 ```
 
 Or add these exports to your shell profile (`~/.zshrc` or `~/.bashrc`).
@@ -71,7 +76,7 @@ Edit `references/anti-patterns.md` to add words or phrases you want to avoid. Th
 
 ### Style guide
 
-Edit `references/style-guide.md` to define your writing voice, preferred structures, and signature moves.
+Edit `references/style-guide.md` to define your writing voice, preferred structures, and signature moves. The guide includes sentence case preferences for titles and headings to match a conversational tone.
 
 ## Tips
 
