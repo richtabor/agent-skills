@@ -1,6 +1,6 @@
 ---
 name: technical-writing
-description: Helps write technical blog posts and progress updates about features being built. Use when the user wants to write about development progress, new features, technical implementations, or project updates. Analyzes codebase to understand what was built and structures engaging technical content. MUST follow BOTH references/anti-patterns.md (avoid AI patterns) AND references/style-guide.md (personal voice).
+description: Writes technical blog posts about features being built. Triggers when user asks to write about development progress, implementations, or project updates.
 ---
 
 # Technical Writing Skill
