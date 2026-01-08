@@ -93,39 +93,31 @@ if [ "$HTTP_CODE" -ge 400 ]; then
 fi
 
 # Check if the request was successful using proper JSON parsing
-SUCCESS=$(echo "$RESPONSE" | python3 -c "import sys, json; data = json.load(sys.stdin); print(data.get('success', False))" 2>/dev/null || echo "False")
+SUCCESS=$(echo "$RESPONSE" | python3 -c "import sys, json; data = json.load(sys.stdin); print(str(data.get('success', False)).lower())" 2>/dev/null || echo "false")
 
-if [ "$SUCCESS" = "True" ]; then
-    # Extract the content based on format
-    if [ "$FORMAT" = "markdown" ]; then
-        CONTENT=$(echo "$RESPONSE" | python3 -c "
+if [ "$SUCCESS" = "true" ]; then
+    # Extract the content using a Python script
+    CONTENT=$(echo "$RESPONSE" | python3 -c "
 import sys, json
+
 try:
     data = json.load(sys.stdin)
-    if 'data' in data and 'markdown' in data['data']:
-        print(data['data']['markdown'])
-    else:
-        print('Error: markdown content not found in response', file=sys.stderr)
+    format_type = sys.argv[1]
+    
+    if 'data' not in data:
+        print(f'Error: data field not found in response', file=sys.stderr)
         sys.exit(1)
+    
+    if format_type not in data['data']:
+        print(f'Error: {format_type} content not found in response', file=sys.stderr)
+        sys.exit(1)
+    
+    print(data['data'][format_type])
+    
 except (json.JSONDecodeError, KeyError) as e:
     print(f'Error parsing response: {e}', file=sys.stderr)
     sys.exit(1)
-" 2>&1)
-    else
-        CONTENT=$(echo "$RESPONSE" | python3 -c "
-import sys, json
-try:
-    data = json.load(sys.stdin)
-    if 'data' in data and 'text' in data['data']:
-        print(data['data']['text'])
-    else:
-        print('Error: text content not found in response', file=sys.stderr)
-        sys.exit(1)
-except (json.JSONDecodeError, KeyError) as e:
-    print(f'Error parsing response: {e}', file=sys.stderr)
-    sys.exit(1)
-" 2>&1)
-    fi
+" "$FORMAT" 2>&1)
     
     # Check if content extraction was successful
     if [ $? -ne 0 ]; then
