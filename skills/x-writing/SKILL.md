@@ -1,20 +1,24 @@
 ---
 name: x-writing
-description: Transforms notes into X (Twitter) posts. Triggers when user asks to create social content, draft tweets, or turn notes/ideas into posts.
+description: Transforms notes, URLs, and content into X (Twitter) posts. Triggers when user asks to create social content, draft tweets, or turn notes/ideas/URLs into posts.
 approved:
   - Read:references/*
   - Read:.social/*
   - Write:.social/*
   - Bash:./scripts/fetch-notes.sh*
+  - Bash:./scripts/fetch-url-content.sh*
 ---
 
 # X Writing Skill
 
 ## Overview
 
-Transform your notes, work updates, and observations into engaging X (Twitter) content. This skill analyzes your notes to identify the most shareable insights, then crafts authentic posts that match your voice and drive engagement.
+Transform your notes, work updates, observations, and web content into engaging X (Twitter) content. This skill analyzes your source material to identify the most shareable insights, then crafts authentic posts that match your voice and drive engagement.
 
-**Supports macOS Notes integration** - Automatically fetch ideas from your Notes app to draft posts.
+**Supports multiple content sources:**
+- **macOS Notes integration** - Automatically fetch ideas from your Notes app
+- **URL content extraction** - Extract content from blog posts, articles, or web pages using Firecrawl
+- **Direct text/markdown** - Paste or reference content directly
 
 ## Process
 
@@ -34,11 +38,12 @@ Before any other work, read ALL THREE reference files:
 
 **1.2 Understand the Source Material**
 
-Get clarity on what notes to work with:
+Get clarity on what content to work with:
 
-- Ask which notes, ideas, or updates they want to transform into posts
+- Ask which notes, ideas, URLs, or updates they want to transform into posts
 - **macOS Notes Integration**: When the user asks to "look in my notes" or "fetch from Notes", use `scripts/fetch-notes.sh get` to pull content from their configured Notes app note (default: "Tweets")
-- Read the source material (markdown files, text, pasted content, or Notes app content)
+- **URL Content Extraction**: When the user provides a URL (e.g., "draft posts for this URL: https://example.com"), use `scripts/fetch-url-content.sh` to extract the content using Firecrawl
+- Read the source material (markdown files, text, pasted content, Notes app content, or extracted URL content)
 - Identify the core insights, learnings, or updates
 - Note any specific tools, projects, numbers, or details mentioned
 
@@ -53,6 +58,17 @@ Get clarity on what notes to work with:
 # List all available notes
 ./scripts/fetch-notes.sh list
 ```
+
+**Using URL Content Extraction:**
+```bash
+# Extract content from a URL (markdown format)
+./scripts/fetch-url-content.sh "https://example.com/post"
+
+# Extract as plain text instead
+./scripts/fetch-url-content.sh "https://example.com/post" text
+```
+
+**Note:** URL extraction requires a Firecrawl API key configured in `.env.local`. See setup instructions below.
 
 **Multiple ideas/notes workflow:**
 - When the user provides multiple distinct ideas or notes, work through them ONE AT A TIME
@@ -297,16 +313,77 @@ Would you like me to:
 • Draft additional posts from other insights in your notes
 ```
 
+## Example Interaction: URL-Based Content
+
+**User**: "Can you draft some posts for this URL: https://example.com/my-blog-post"
+
+**Response**:
+```
+Let me fetch and analyze the content from that URL.
+
+[Phase 1: Loads references/x-strategy.md, style-guide.md, and anti-patterns.md]
+[Fetches content using scripts/fetch-url-content.sh]
+[Analyzes the blog post, identifies key insights and shareable angles]
+
+─────────────────────────────────
+📱 Post 1 (Single Tweet, 195 chars)
+─────────────────────────────────
+
+Rebuilt our search from scratch using vector embeddings.
+
+Search quality went from 45% relevance to 92%. Users find what they need in one try now.
+
+Worth the 3-week detour.
+
+Pattern: "Shipped X, learned Y"
+Key specifics: vector embeddings, 45% to 92% improvement
+Engagement: Implicit (landing the metric)
+
+─────────────────────────────────
+
+📱 Post 2 (Single Tweet, 212 chars)
+─────────────────────────────────
+
+Vector search isn't magic. It's pattern matching on steroids.
+
+The secret: clean training data and careful prompt engineering. We spent more time on data prep than the actual model.
+
+Pattern: Counter-intuitive insight
+Key specifics: data prep vs model work
+Engagement: Implicit
+
+─────────────────────────────────
+
+From the blog post, I selected:
+✓ The search rebuild story (strong before/after)
+✓ Specific metrics (45% to 92%)
+✓ The data prep insight (counter-intuitive)
+✗ Technical implementation details (too granular for X)
+
+Would you like me to:
+• Save these approved posts to .social/
+• Create a thread version with more context
+• Draft posts from a different angle
+```
+
 ## Tips for Best Results
 
-1. **Provide context**: "Notes from building curation feature" vs just pasting notes
-2. **Mention specific parts**: "Focus on the learning about context matching" helps prioritize
-3. **Indicate quantity**: "Create 3 posts from these notes" vs "create posts"
-4. **Specify format preference**: "Single tweets only" or "open to threads"
-5. **Request variations**: "Show me a few angles" gives options to choose from
-6. **Iterate**: After the draft, request adjustments: "Make it more specific" or "Add a question ending"
+1. **Provide context**: "Notes from building curation feature" or "Blog post about vector search" vs just pasting URLs/notes
+2. **For URLs**: Share the URL directly - "Draft posts for https://example.com/post"
+3. **Mention specific parts**: "Focus on the learning about context matching" helps prioritize
+4. **Indicate quantity**: "Create 3 posts from this content" vs "create posts"
+5. **Specify format preference**: "Single tweets only" or "open to threads"
+6. **Request variations**: "Show me a few angles" gives options to choose from
+7. **Iterate**: After the draft, request adjustments: "Make it more specific" or "Add a question ending"
 
-## Working with Different Note Types
+## Working with Different Content Types
+
+### URL/Blog Post Content
+- Extract the main insights and learnings
+- Focus on counter-intuitive findings or surprising results
+- Look for specific metrics, tools, or outcomes
+- Ignore promotional language or fluff
+- Pull out actionable takeaways
 
 ### Technical/Dev Notes
 - Extract specific tools, frameworks, or technical decisions
