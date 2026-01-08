@@ -50,7 +50,7 @@ if [ "$FORMAT" != "markdown" ] && [ "$FORMAT" != "text" ]; then
 fi
 
 # Fetch content using Firecrawl API
-RESPONSE=$(curl -s -X POST "https://api.firecrawl.dev/v1/scrape" \
+HTTP_CODE=$(curl -s -w "%{http_code}" -o /tmp/firecrawl_response.json -X POST "https://api.firecrawl.dev/v1/scrape" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $FIRECRAWL_API_KEY" \
     -d "{
@@ -58,14 +58,64 @@ RESPONSE=$(curl -s -X POST "https://api.firecrawl.dev/v1/scrape" \
         \"formats\": [\"$FORMAT\"]
     }")
 
+# Check if curl failed
+if [ $? -ne 0 ] || [ -z "$HTTP_CODE" ]; then
+    echo "Error: Failed to connect to Firecrawl API. Check your internet connection." >&2
+    rm -f /tmp/firecrawl_response.json
+    exit 1
+fi
+
+# Read the response
+RESPONSE=$(cat /tmp/firecrawl_response.json)
+rm -f /tmp/firecrawl_response.json
+
+# Check HTTP status code
+if [ "$HTTP_CODE" -ge 400 ]; then
+    ERROR_MSG=$(echo "$RESPONSE" | python3 -c "import sys, json; data = json.load(sys.stdin); print(data.get('error', 'HTTP error $HTTP_CODE'))" 2>/dev/null || echo "HTTP error $HTTP_CODE")
+    echo "Error: API request failed with status $HTTP_CODE: $ERROR_MSG" >&2
+    exit 1
+fi
+
 # Check if the request was successful
 if echo "$RESPONSE" | grep -q '"success":true'; then
     # Extract the content based on format
     if [ "$FORMAT" = "markdown" ]; then
-        echo "$RESPONSE" | python3 -c "import sys, json; data = json.load(sys.stdin); print(data['data']['markdown'])" 2>/dev/null
+        CONTENT=$(echo "$RESPONSE" | python3 -c "
+import sys, json
+try:
+    data = json.load(sys.stdin)
+    if 'data' in data and 'markdown' in data['data']:
+        print(data['data']['markdown'])
+    else:
+        print('Error: markdown content not found in response', file=sys.stderr)
+        sys.exit(1)
+except (json.JSONDecodeError, KeyError) as e:
+    print(f'Error parsing response: {e}', file=sys.stderr)
+    sys.exit(1)
+" 2>&1)
     else
-        echo "$RESPONSE" | python3 -c "import sys, json; data = json.load(sys.stdin); print(data['data']['text'])" 2>/dev/null
+        CONTENT=$(echo "$RESPONSE" | python3 -c "
+import sys, json
+try:
+    data = json.load(sys.stdin)
+    if 'data' in data and 'text' in data['data']:
+        print(data['data']['text'])
+    else:
+        print('Error: text content not found in response', file=sys.stderr)
+        sys.exit(1)
+except (json.JSONDecodeError, KeyError) as e:
+    print(f'Error parsing response: {e}', file=sys.stderr)
+    sys.exit(1)
+" 2>&1)
     fi
+    
+    # Check if content extraction was successful
+    if [ $? -ne 0 ]; then
+        echo "$CONTENT" >&2
+        exit 1
+    fi
+    
+    echo "$CONTENT"
 else
     # Extract error message if available
     ERROR_MSG=$(echo "$RESPONSE" | python3 -c "import sys, json; data = json.load(sys.stdin); print(data.get('error', 'Unknown error'))" 2>/dev/null || echo "Failed to parse error response")
