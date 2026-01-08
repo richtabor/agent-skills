@@ -105,17 +105,17 @@ try:
     format_type = sys.argv[1]
     
     if 'data' not in data:
-        print(f'Error: data field not found in response', file=sys.stderr)
+        print('Error: data field not found in response', file=sys.stderr)
         sys.exit(1)
     
     if format_type not in data['data']:
-        print(f'Error: {format_type} content not found in response', file=sys.stderr)
+        print('Error: {} content not found in response'.format(format_type), file=sys.stderr)
         sys.exit(1)
     
     print(data['data'][format_type])
     
 except (json.JSONDecodeError, KeyError) as e:
-    print(f'Error parsing response: {e}', file=sys.stderr)
+    print('Error parsing response: {}'.format(e), file=sys.stderr)
     sys.exit(1)
 " "$FORMAT" 2>&1)
     
