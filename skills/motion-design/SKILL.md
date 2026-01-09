@@ -1,6 +1,6 @@
 ---
 name: motion-design
-description: Provides motion design guidance for UI components. Triggers on animation requests ("animate this", "add transition", "motion for"), refinement requests ("clean up this animation", "this feels too fast/slow", "make this feel more alive/natural"), and questions about easing, timing, or micro-interactions.
+description: Provides motion design guidance for UI components. Triggers on animation requests ("animate this", "add transition", "motion for"), refinement requests ("clean up this animation", "clean up the motion", "this feels too fast/slow", "make this feel more alive/natural"), and questions about easing, timing, or micro-interactions.
 ---
 
 # Motion Design
