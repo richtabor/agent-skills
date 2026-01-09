@@ -1,4 +1,4 @@
-# Web Animation Skill
+# Motion Design Skill
 
 Designs intentional, purposeful motion for product UI. Evaluates animation needs and recommends specific easing curves, durations, and implementation approaches based on interaction type and frequency.
 

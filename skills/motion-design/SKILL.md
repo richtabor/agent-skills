@@ -1,5 +1,5 @@
 ---
-name: web-animation
+name: motion-design
 description: Designs motion for UI components. Triggers on "animate this", "what easing", "motion for", or requests about transitions, animations, and micro-interactions.
 ---
 

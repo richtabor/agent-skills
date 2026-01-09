@@ -18,7 +18,7 @@ A collection of custom skills built on the open [Agent Skills](https://agentskil
 | Plugin | Skills | Description |
 |--------|--------|-------------|
 | `writing` | [technical-writing](./skills/technical-writing), [x-writing](./skills/x-writing) | Writing skills for technical blog posts and social content |
-| `development` | [accessibility-review](./skills/accessibility-review) | Development skills including accessibility reviews |
+| `development` | [accessibility-review](./skills/accessibility-review), [motion-design](./skills/motion-design) | Development skills including accessibility reviews and motion design |
 
 ## Available Skills
 
@@ -26,6 +26,7 @@ A collection of custom skills built on the open [Agent Skills](https://agentskil
 |-------|-------------|
 | [accessibility-review](./skills/accessibility-review) | Conducts manual accessibility reviews of UI components, pages, and applications against WCAG 2.1/2.2 Level AA standards. Provides prioritized findings (Critical/Warning) focused on practical, modern web accessibility standards. |
 | [technical-writing](./skills/technical-writing) | Writes technical blog posts about features being built. Analyzes codebase, avoids AI-sounding language, and can publish directly to WordPress. Supports sentence case titles and headings for a conversational tone. |
+| [motion-design](./skills/motion-design) | Designs intentional motion for product UI. Evaluates interaction purpose and frequency, then recommends specific easing curves, durations, and implementation approaches (with anti-patterns to avoid). |
 | [x-writing](./skills/x-writing) | Transforms notes into engaging X (Twitter) posts. Analyzes notes to identify shareable insights and crafts authentic posts that match your voice and drive engagement. Supports macOS Notes integration. |
 
 ## Cross-Platform Support
