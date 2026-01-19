@@ -82,3 +82,7 @@ Some skills require environment variables. Copy the example file and add your cr
 ```bash
 cp skills/skill-name/.env.example skills/skill-name/.env.local
 ```
+
+## Credits
+
+The PRD and Ralph skills (`create-prd`, `create-prd-json`, `ralph`) are inspired by [snarktank/ralph](https://github.com/snarktank/ralph).
