@@ -26,6 +26,7 @@
       "strict": false,
       "skills": [
         "./skills/accessibility-review",
+        "./skills/fresh-eyes",
         "./skills/motion-design"
       ]
     }
