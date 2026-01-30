@@ -1,7 +1,6 @@
 ---
 name: create-prd
 description: Plan features interactively. Asks clarifying questions, then generates a detailed PRD document.
-user_invocable: true
 ---
 
 # Create PRD

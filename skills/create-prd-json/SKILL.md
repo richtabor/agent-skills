@@ -1,7 +1,6 @@
 ---
 name: create-prd-json
 description: Converts a PRD markdown file into prd.json format for Ralph to execute autonomously.
-user_invocable: true
 ---
 
 # Create PRD JSON
