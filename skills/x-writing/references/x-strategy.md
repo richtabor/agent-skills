@@ -157,6 +157,97 @@ If you see these phrases, usually skip:
 
 ---
 
+## Formatting & Structure
+
+How to format content for X specifically. Visual structure determines whether people read or bounce.
+
+### Hook First
+
+First line IS the tweet. No preamble.
+
+Common hooks:
+- "How to [X]"
+- "Why [X] doesn't work"
+- "[X] is [Y]"
+- "Shipped [X]"
+- "Here's what I learned:"
+
+### Visual Rules
+
+**One sentence per line.** Creates natural rhythm, easier to process visually.
+
+**White space between lines/sections.** Dense text blocks feel exhausting on X.
+
+**Use lists for complexity:**
+- Bullet points ("-" or ">") for steps/ideas
+- Numbered lists for sequences
+- People skim and grab main points
+
+**No italics.** Formatting breaks on X. Use emphasis through word choice: "literally," "actually," "exactly."
+
+### Length
+
+Target 180-250 characters. Leave room for RTs.
+
+### The Formula
+
+For most tweets: **[Specific action/observation] + [Why it matters] + [Your take/learning]**
+
+Examples:
+
+"Shipped curation for agents.foo. Discovery is way harder than app stores. Agents are conversations, not static downloads. Totally different problem."
+
+"Claude Code cut dev time from days to hours. Not because it writes better code. Because it handles the boring parts automatically."
+
+"Everyone wants AI to sound human. Few actually build quality checks. Speed ≠ authenticity."
+
+### Signature Patterns
+
+Common opening patterns:
+
+| Opening | Usage |
+|---------|-------|
+| "Shipped [X]" | Project updates |
+| "Here's what I learned:" | Insight posts |
+| "[X] is [Y]" | Direct statements |
+| "Wild how..." | Genuine surprise |
+| "Most people [X]. But..." | Challenge pattern |
+| "How to [X]" | Tutorial/guide posts |
+
+Common closing patterns:
+
+| Closing | Usage |
+|---------|-------|
+| "More on this soon." | Teaser |
+| "What's your approach?" | Question |
+| "Pretty cool." | Understated excitement |
+| "That's it." | Hard stop |
+| No closing | Let the insight land |
+
+### Good vs Bad Examples
+
+**Good:**
+"Workflow DevKit is wild. Built-in durability, automatic retries, state persistence. Ships with Next.js. Would take weeks to build manually."
+
+Why: Specific tools, concrete benefits, genuine reaction, personal experience
+
+**Good:**
+"Shipped agents.foo curation v1 today. Discovery is the hardest part. Agents aren't apps—they're conversations. Traditional app store UX doesn't work here."
+
+Why: Real project, specific insight, clear problem statement
+
+**Bad:**
+"Just shipped something cool! Really excited about this game-changing feature. It's going to revolutionize how we think about discovery. Thoughts?"
+
+Why: Vague, banned phrases, generic closing, no specifics
+
+**Bad:**
+"Hot take: AI is the future of product development. We need to leverage these tools to unlock new possibilities. What do you think?"
+
+Why: Empty statement, corporate speak, no personal experience, generic question
+
+---
+
 ## High-Engagement Patterns
 
 ### Pattern 1: "Shipped X, Learned Y"
@@ -312,6 +403,8 @@ Using it for all agents.foo workflows. Saved ~3 weeks dev time."
 - Make specific, debatable claims
 - Show genuine curiosity
 - Leave room for others to add their perspective
+
+**Tease follow-ups.** "More on this soon" or "Writing about this next week" creates anticipation and signals ongoing depth.
 
 ---
 

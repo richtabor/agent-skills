@@ -1,11 +1,6 @@
 ---
 name: x-writing
 description: Transforms notes into X (Twitter) posts. Triggers when user asks to create social content, draft tweets, or turn notes/ideas into posts.
-approved:
-  - Read:references/*
-  - Read:.social/*
-  - Write:.social/*
-  - Bash:./scripts/fetch-notes.sh*
 ---
 
 # X Writing Skill
@@ -22,15 +17,15 @@ Transform your notes, work updates, and observations into engaging X (Twitter) c
 
 **1.1 Load Writing Guides (REQUIRED - Load First)**
 
-Before any other work, read ALL THREE reference files:
+Before any other work, load the following:
 
 1. **Growth Principles** (`references/x-strategy.md`) - Content selection criteria, what makes posts shareable, engagement patterns, and what to prioritize from notes. This guides WHAT to share.
 
-2. **Style Guide** (`references/style-guide.md`) - Voice, tone, structure, banned phrases, and signature patterns. This guides HOW to share it.
+2. **Writing Style Guide** (from `WRITING_STYLE_GUIDE_PATH` env var) - Voice, tone, structure, banned phrases, and signature patterns. This guides HOW to share it. Skip if the env var is not set.
 
-3. **Anti-Patterns** (`references/anti-patterns.md`) - AI writing patterns to avoid. Critical for ensuring posts sound human and authentic, not AI-generated. Avoid patterns like "It's not X, it's Y", formal transitions, hedging language, and AI-specific vocabulary.
+3. **Anti-Patterns** - Run `echo "$WRITING_ANTI_PATTERNS_PATH"` to check the env var. If set, load that file. If not set, fall back to `references/anti-patterns.md`. AI writing patterns to avoid. Critical for ensuring posts sound human and authentic, not AI-generated. Avoid patterns like "It's not X, it's Y", formal transitions, hedging language, and AI-specific vocabulary.
 
-**PRIORITY RULE**: When guides conflict, `references/x-strategy.md` wins. Content value and shareability take precedence over stylistic preferences.
+**PRIORITY RULE**: When guides conflict, `references/x-strategy.md` wins. Content value and shareability take precedence over stylistic preferences. When the style guide and anti-patterns conflict, anti-patterns win.
 
 **1.2 Understand the Source Material**
 
@@ -44,7 +39,7 @@ Get clarity on what notes to work with:
 
 **Using macOS Notes Integration:**
 ```bash
-# Fetch content from default note (configured in .env.local)
+# Fetch content from default note (configured via NOTES_SOURCE env var)
 ./scripts/fetch-notes.sh get
 
 # Fetch content from a specific note
@@ -62,87 +57,38 @@ Get clarity on what notes to work with:
 
 **1.3 Apply Selection Criteria**
 
-Using principles from `references/x-strategy.md`, evaluate the notes:
-
-- **High Priority**: Shipped features with learnings, non-obvious insights, specific tool recommendations, solutions to common problems
-- **Medium Priority**: Industry takes with unique angles, process improvements with examples
-- **Low Priority**: Generic progress updates, future plans, obvious observations
-- **Skip**: Engagement bait, vague hype, complaints without solutions
-
-For each potential post, verify:
-- Does it teach something specific?
-- Is it backed by real experience?
-- Would you want to read this if someone else posted it?
+Evaluate notes using the Content Selection Framework in `references/x-strategy.md`. Prioritize shipped work with learnings, non-obvious insights, and specific tool recommendations. Skip engagement bait, vague hype, and complaints without solutions.
 
 ### Phase 2: Content Creation
 
 **2.1 Select the Best Angle**
 
-From your analysis, identify:
-- **One clear idea** - What's the single most interesting insight?
-- **Specific details** - What names, numbers, or examples prove the point?
-- **The hook** - What's the opening line that makes someone stop scrolling?
+Identify one clear idea, the specific details that prove it, and the hook (first line).
 
 **2.2 Choose the Format**
 
-Based on the content:
-
-**Single Tweet** (most content) - Use for:
-- One clear insight or observation
-- Quick ship updates with learning
-- Tool recommendations
-- Strong observations
-
-**Thread (2-5 tweets)** - Only use when you have:
-- A narrative with steps
-- Multiple related insights that build on each other
-- Before/after story with context
+Default to single tweets. Only thread (2-5 tweets) when the story requires steps, multiple related insights, or before/after context. See Thread Strategy in `references/x-strategy.md`.
 
 **2.3 Draft the Content**
 
-Apply BOTH guides loaded in Phase 1:
-
-**From style-guide.md:**
-- Direct, zero fluff - Get to the point in line 1
-- Hook = first line
-- Short sentences (10-15 words max)
-- Specific over generic (names, tools, numbers)
-- Present tense, active voice
-- 180-250 characters (leave room for RTs)
-- Avoid banned phrases (game-changer, unlock, dive in, leverage)
-- Apply casing preference from CASING_STYLE env var (lowercase by default, capitalize personal names and WordPress)
-
-**From x-strategy.md:**
-- Value first - Give readers something useful
-- Show your work - Share process and reasoning
-- Specificity builds credibility
-- One clear idea per post
-
-**Pattern Selection:**
-Use appropriate pattern from x-strategy.md:
-- "Here's what I learned" - For insights
-- "Shipped X, learned Y" - For updates
-- Specific vs Generic - For challenging assumptions
-- Tool Recommendation - For workflow improvements
-- Problem → Solution - For how you solved something
+Apply all three guides loaded in Phase 1 **during drafting, not just as a post-check**:
+- **x-strategy.md** — formatting rules, content strategy, High-Engagement Patterns, and Signature Patterns. **Formatting is critical**: one sentence per line, white space between lines, hook in first line, 180-250 chars, no italics.
+- **Writing style guide** (`WRITING_STYLE_GUIDE_PATH`) — voice, tone, banned phrases, language simplification. Apply casing preference from X_CASE_STYLE env var (standard by default). When set to `"lowercase"`, use all lowercase including "i" as a pronoun — only capitalize personal names, WordPress, and product names.
+- **Anti-patterns** — actively avoid during drafting. If a draft uses any anti-pattern, rewrite before presenting. **HARD RULE: NEVER use the "It's not X, it's Y" reframing pattern in any form.** This includes: "isn't X, it's Y", "not because X, because Y", "isn't about X, it's about Y", "less about X, more about Y". Say the positive claim directly instead. Also avoid: em dashes, generic observations without specifics, and intensifiers.
 
 **2.4 Engagement Optimization**
 
-End 70% of posts with engagement:
-- Specific question: "How do you handle [specific thing]?"
-- Teaser: "More on this soon."
-- Invitation: "Curious what you think."
-- Hard stop (30%): Let the insight land
+End ~70% of posts with engagement (specific question, teaser, or invitation). Let the rest land with a hard stop. See "What Makes Content Shareable" in `references/x-strategy.md`.
 
 **2.5 Quality Check**
 
-Before finalizing, verify against the three loaded reference files:
+After drafting, re-read every post against the anti-patterns guide and fix any violations before presenting. Then verify:
 - [ ] Did I get to the point in line 1?
 - [ ] Is this specific? (names, numbers, examples)
 - [ ] Would I actually say this out loud?
 - [ ] Does it sound like ME, not ChatGPT?
-- [ ] Did I use any banned phrases from style-guide.md?
-- [ ] Did I avoid AI patterns from anti-patterns.md?
+- [ ] Did I use any banned phrases from the writing style guide?
+- [ ] Did I avoid ALL anti-patterns? (reframing, em dashes, intensifiers, generic observations)
 - [ ] If it's a reaction, did I add MY angle?
 
 ### Phase 3: Output
@@ -173,21 +119,22 @@ Briefly note what was prioritized and why:
 
 **3.4 Save Approved Posts**
 
-When the user approves a post, append it to `.social/X.md` at the top level (create if missing).
+When the user approves a post, save it to the drafts file (create if missing).
 
-**File location:**
-- Always save to: `.social/X.md` (top-level, works from any directory)
+**File location (resolve before saving):**
+1. Run `echo "$X_DRAFTS_FILE"` to check the env var
+2. If set, append to that file path
+3. If not set, default to `.x/posts.md` (top-level, create if missing)
 
 **Markdown format:**
 ```markdown
 ---
 
 **Category:** Learning
-**Type:** Single
-**Status:** approved
 **Date:** 2026-01-01
 
 WordPress.com AI adds conversation alongside block editing.
+
 
 People who couldn't navigate the UI before are shipping sites now. Others still use blocks for fine-tuning.
 
@@ -196,25 +143,24 @@ Both work. The conversation path just removes the skill barrier.
 ---
 ```
 
-**For threads**, use markers to distinguish tweets:
+**For threads**, use `[Tweet N]` markers:
 ```markdown
 ---
 
 **Category:** Learning
-**Type:** Thread
-**Status:** approved
 **Date:** 2026-01-01
 
-[THREAD - Tweet 1/4]
+[Tweet 1]
 WordPress.com AI changes how people build sites.
 
-[Tweet 2/4]
+
+[Tweet 2]
 People who couldn't navigate block editing are shipping now.
 
-[Tweet 3/4]
+[Tweet 3]
 The UI is still there for fine-tuning. But conversation removes the skill barrier.
 
-[Tweet 4/4]
+[Tweet 4]
 Ask or click. Both paths work.
 
 ---
@@ -228,7 +174,7 @@ Ask or click. Both paths work.
 
 **Workflow:**
 1. Present the post(s) to the user
-2. When approved, append to `.social/X.md`
+2. When approved, append to `X_DRAFTS_FILE` or `.x/posts.md`
 3. User can copy-paste directly into X (text is ready with proper line breaks)
 4. User removes the section after posting, or asks you to remove it
 
@@ -265,7 +211,7 @@ Alternative angles:
 ```
 Let me analyze your notes and create X content.
 
-[Phase 1: Loads references/x-strategy.md and references/style-guide.md]
+[Phase 1: Loads references/x-strategy.md and writing style guide]
 [Reads the notes, identifies key insights and specific details]
 
 ─────────────────────────────────
@@ -291,7 +237,7 @@ From your notes, I selected:
 ✗ Number of rebuild attempts (not essential to the insight)
 
 Would you like me to:
-• Save this approved post to .social/ for tracking
+• Save this approved post for tracking
 • Create a thread version breaking down why search patterns failed
 • Add a question ending for more engagement
 • Draft additional posts from other insights in your notes
@@ -306,44 +252,13 @@ Would you like me to:
 5. **Request variations**: "Show me a few angles" gives options to choose from
 6. **Iterate**: After the draft, request adjustments: "Make it more specific" or "Add a question ending"
 
-## Working with Different Note Types
+## Environment Variables
 
-### Technical/Dev Notes
-- Extract specific tools, frameworks, or technical decisions
-- Focus on the "why" behind technical choices
-- Include measurable improvements (time saved, performance gains)
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `WRITING_STYLE_GUIDE_PATH` | No | Path to shared writing style guide. Loaded in Phase 1.1 |
+| `WRITING_ANTI_PATTERNS_PATH` | No | Path to shared anti-patterns. Overrides `references/anti-patterns.md` |
+| `X_DRAFTS_FILE` | No | File path for saving approved posts. Default: `.x/posts.md` |
+| `NOTES_SOURCE` | No | Name of the macOS Notes note to fetch from (default: "Tweets") |
+| `X_CASE_STYLE` | No | `"standard"` (default) or `"lowercase"` |
 
-### Personal Observations
-- Find the counter-intuitive angle
-- Add specific examples from your work
-- Tie to practical application
-
-### Meeting Notes
-- Extract actionable insights
-- Skip procedural details
-- Focus on decisions or learnings
-
-### Work Updates
-- Lead with what shipped
-- Include one key learning
-- Make it specific (not "made progress")
-
-## Advanced: Batch Processing
-
-For multiple posts from one set of notes:
-
-1. **Identify 3-5 distinct insights** worth sharing
-2. **Create separate posts** for each (don't try to cram everything)
-3. **Space them out** - Don't post all at once
-4. **Vary patterns** - Use different structures for variety
-5. **Test and iterate** - See what resonates, refine approach
-
-## Remember
-
-**Quality over quantity.** 2 valuable posts beat 10 generic ones.
-
-**Specificity is everything.** Names, numbers, tools, projects - these make posts shareable.
-
-**Your voice matters.** Follow the guides but sound like yourself, not a template.
-
-**Value first.** If it doesn't teach, share insight, or help someone - reconsider posting it.

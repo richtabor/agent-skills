@@ -162,7 +162,7 @@ Cliches that AI overuses:
 
 ### Structural Patterns to Fix
 
-**Em-dash overuse**: Replace em dashes (—) with commas, periods, or parentheses.
+**Em dashes**: Don't use em dashes (—). Replace with commas, periods, or parentheses.
 
 **-ing phrase endings**: Avoid trailing participial phrases like:
 
@@ -176,6 +176,16 @@ Cliches that AI overuses:
 **Dual adjective constructions**: Avoid phrases like "innovative and comprehensive approach" or "dynamic and robust solution."
 
 **Reframing cliches**: Don't use the "It's not X, it's Y" pattern.
+
+Also avoid the two-sentence version:
+
+- "It's not X. It's Y."
+- "This isn't about X. It's about Y."
+
+Say the positive claim directly.
+
+Bad: "It's not about the words. It's about the patterns."
+Better: "The patterns are the problem, not individual words."
 
 ---
 
@@ -219,6 +229,12 @@ Never start with:
 - "Picture this"
 - "Let's delve into"
 - "As we embark on this journey"
+- "Here's the thing"
+- "Here's the deal"
+- "The thing is"
+- "The truth is"
+- "Let me be clear"
+- "Look,"
 
 ### Closing Cliches
 
