@@ -19,9 +19,13 @@ npx skills add richtabor/agent-skills
 
 Reviews UI for accessibility issues against WCAG 2.1/2.2 Level AA. Provides prioritized findings (Critical/Warning) focused on practical, modern web accessibility.
 
-### [Add Links](./skills/add-links)
+### [WordPress Add Links](./skills/wordpress-add-links)
 
-Adds links to markdown content.
+Finds internal and external links for a blog post draft, naturally woven into existing text.
+
+### [AGENTS.md](./skills/agents-md)
+
+Creates and refactors AGENTS.md files using progressive disclosure principles.
 
 ### [Create PRD](./skills/create-prd)
 
