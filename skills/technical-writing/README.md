@@ -7,7 +7,7 @@ Write technical blog posts about features you're building. This skill analyzes y
 1. Open a project you want to write about
 2. Ask: "Help me write about the [feature name]"
 3. The skill investigates your code, loads the style guides, and drafts a post
-4. Post is saved to `.blog/YYYY-MM-DD-slug.md`
+4. Post is saved to `DRAFTS_PATH` (or `.blog/` by default)
 
 ## What It Does
 
@@ -15,7 +15,7 @@ Write technical blog posts about features you're building. This skill analyzes y
 - Applies strict anti-AI-pattern rules (no "dive into", "leverage", etc.)
 - Uses your personal voice from the style guide
 - Uses sentence case for titles and headings (configurable)
-- Saves posts with consistent naming to `.blog/`
+- Saves posts to configurable `DRAFTS_PATH` (falls back to `.blog/`)
 - Optionally publishes drafts to WordPress
 
 ## Files
@@ -46,19 +46,19 @@ pip install requests markdown2
 
 ### 3. Configure credentials
 
-Create `.env.local` in this directory (it's gitignored):
+Add to your Claude Code settings (`~/.claude/settings.json`):
 
-```bash
-WORDPRESS_URL="https://yourblog.com"
-WORDPRESS_USERNAME="your_username"
-WORDPRESS_APP_PASSWORD="xxxx xxxx xxxx xxxx"
-
-# Optional: Title and heading casing (defaults to "sentence")
-TITLE_CASE_STYLE="sentence"  # Options: "sentence" or "title"
-HEADING_CASE_STYLE="sentence"  # Options: "sentence" or "title"
+```json
+{
+  "env": {
+    "WORDPRESS_URL": "https://yourblog.com",
+    "WORDPRESS_USERNAME": "your_username",
+    "WORDPRESS_APP_PASSWORD": "xxxx xxxx xxxx xxxx",
+    "TITLE_CASE_STYLE": "sentence",
+    "HEADING_CASE_STYLE": "sentence"
+  }
+}
 ```
-
-Or add these exports to your shell profile (`~/.zshrc` or `~/.bashrc`).
 
 ### 4. Publish
 

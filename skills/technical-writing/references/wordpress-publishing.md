@@ -12,15 +12,17 @@ You'll need three things:
    - **Important**: Use an Application Password, NOT your regular WordPress password
    - Application Passwords can be revoked independently for better security
 
-Set these as environment variables in your shell profile (`~/.zshrc`, `~/.bashrc`, etc.):
+Add these to your Claude Code settings (`~/.claude/settings.json`) under the `env` key:
 
-```bash
-export WORDPRESS_URL="https://yourblog.com"
-export WORDPRESS_USERNAME="your_username"
-export WORDPRESS_APP_PASSWORD="xxxx xxxx xxxx xxxx"
+```json
+{
+  "env": {
+    "WORDPRESS_URL": "https://yourblog.com",
+    "WORDPRESS_USERNAME": "your_username",
+    "WORDPRESS_APP_PASSWORD": "xxxx xxxx xxxx xxxx"
+  }
+}
 ```
-
-After setting them, reload your shell: `source ~/.zshrc`
 
 ## Installing Dependencies
 
@@ -118,7 +120,7 @@ Notice the post_id stays the same (123) - it updates the existing post instead o
 ## Troubleshooting
 
 **"Missing WordPress credentials" error:**
-- Make sure environment variables are set and your shell is reloaded
+- Make sure environment variables are set in `~/.claude/settings.json` under the `env` key
 
 **Connection errors:**
 - Verify your `WORDPRESS_URL` is correct (include `https://`)

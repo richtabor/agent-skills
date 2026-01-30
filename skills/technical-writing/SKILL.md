@@ -63,12 +63,16 @@ Create the blog post applying BOTH guides you loaded in Phase 1.
 
 **2.2 Save the Draft**
 
-Save the completed blog post to `.blog/` (create the folder if missing):
+Save the completed blog post to the drafts directory (create the folder if missing).
+
+**To find the save path**, run: `echo $DRAFTS_PATH`
+- If the output is non-empty, save there
+- If empty, fall back to `.blog/` in the current project
 
 **File naming convention:**
-- Format: `.blog/YYYY-MM-DD-slug.md`
+- Format: `YYYY-MM-DD-slug.md`
 - Use URL-friendly slug based on title
-- Example: `.blog/2025-12-29-voice-planner.md`
+- Example: `2025-12-29-voice-planner.md`
 
 ### Phase 3: Publishing (Optional)
 
@@ -132,6 +136,32 @@ Key Files Referenced:
 
 Word Count: ~850 words
 ```
+
+## Environment Variables
+
+Configure in Claude Code settings (`~/.claude/settings.json`) under the `env` key:
+
+```json
+{
+  "env": {
+    "DRAFTS_PATH": "/path/to/drafts",
+    "WORDPRESS_URL": "https://yourblog.com",
+    "WORDPRESS_USERNAME": "your_username",
+    "WORDPRESS_APP_PASSWORD": "xxxx xxxx xxxx xxxx",
+    "TITLE_CASE_STYLE": "sentence",
+    "HEADING_CASE_STYLE": "sentence"
+  }
+}
+```
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `DRAFTS_PATH` | No | Where to save drafts. Falls back to `.blog/` in current project |
+| `WORDPRESS_URL` | For publishing | WordPress site URL (include `https://`) |
+| `WORDPRESS_USERNAME` | For publishing | WordPress account username |
+| `WORDPRESS_APP_PASSWORD` | For publishing | Application password (not regular password) |
+| `TITLE_CASE_STYLE` | No | `"sentence"` (default) or `"title"` |
+| `HEADING_CASE_STYLE` | No | `"sentence"` (default) or `"title"` |
 
 ## Tips for Best Results
 
