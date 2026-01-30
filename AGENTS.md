@@ -1,11 +1,48 @@
 # Agent Skills
 
-Modular skills that extend AI coding agents. Works across Claude Code, Cursor, Codex, and Copilot.
+A collection of skills for AI coding agents. Works across Claude Code, Cursor, Codex, and Copilot.
+
+## Directory Structure
+
+```
+skills/
+  {skill-name}/           # kebab-case directory name
+    SKILL.md              # Required: skill definition
+    references/           # Optional: documentation loaded as needed
+    scripts/              # Optional: executable scripts
+```
+
+## SKILL.md Format
+
+```markdown
+---
+name: {skill-name}
+description: {One sentence. Include trigger phrases.}
+---
+
+# {Skill Title}
+
+{What the skill does, how it works, usage examples.}
+```
+
+## Context Efficiency
+
+- Keep `SKILL.md` under 500 lines; move details into `references/`
+- Write specific descriptions so the agent knows when to activate
+- Use progressive disclosure: reference supporting files that load only when needed
+- Prefer scripts over inline code (script execution doesn't consume context)
+
+## Script Standards
+
+- Use `#!/bin/bash` shebang
+- Use `set -e` for fail-fast behavior
+- Write status messages to stderr: `echo "Message" >&2`
+- Write machine-readable output (JSON) to stdout
+- Include a cleanup trap for temp files
 
 ## Editing Skills
 
-- Keep `SKILL.md` under 500 lines; move details into `references/`
-- Prefer surgical changes—don't reformat unrelated markdown
+- Prefer surgical changes, don't reformat unrelated markdown
 - Information lives in `SKILL.md` or references, not both
 
 ## Key Files
