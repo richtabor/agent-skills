@@ -1,34 +1,46 @@
 {
-  "name": "richtabor-skills",
+  "name": "richtabor",
   "owner": {
     "name": "Rich Tabor",
-    "email": "rich@tabor.email"
+    "url": "https://github.com/richtabor"
   },
   "metadata": {
-    "description": "A collection of skills for makers",
+    "description": "Collection of skills for makers",
     "version": "1.0.0"
   },
   "plugins": [
     {
-      "name": "writing",
-      "description": "Collection of writing skills for technical blog posts and social content",
+      "name": "rt",
+      "description": "Collection of agent skills for design, engineering, writing, and product",
       "source": "./",
-      "strict": false,
-      "skills": [
-        "./skills/technical-writing",
-        "./skills/x-writing"
-      ]
-    },
-    {
-      "name": "development",
-      "description": "Development skills including accessibility reviews and more",
-      "source": "./",
-      "strict": false,
+      "category": "productivity",
       "skills": [
         "./skills/accessibility-review",
+        "./skills/add-links",
+        "./skills/create-prd",
+        "./skills/create-prd-json",
         "./skills/fresh-eyes",
-        "./skills/motion-design"
-      ]
+        "./skills/markdown-img-alt-text",
+        "./skills/motion-design",
+        "./skills/ralph",
+        "./skills/technical-writing",
+        "./skills/x-writing"
+      ],
+      "keywords": [
+        "accessibility",
+        "writing",
+        "motion-design",
+        "code-review",
+        "product",
+        "prd",
+        "wordpress"
+      ],
+      "homepage": "https://github.com/richtabor/agent-skills",
+      "author": {
+        "name": "Rich Tabor",
+        "email": "rich@tabor.email",
+        "url": "https://github.com/richtabor"
+      }
     }
   ]
 }
