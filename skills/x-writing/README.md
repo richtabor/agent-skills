@@ -2,7 +2,7 @@
 
 Transforms notes, work updates, and observations into X (Twitter) posts. Analyzes source material for shareable insights, drafts authentic posts using proven patterns, and avoids AI writing patterns.
 
-Supports fetching ideas directly from macOS Notes.
+Reads ideas from a markdown file (`X_SOURCE_FILE`) and/or macOS Notes (`X_NOTES_APP_SOURCE`). If both are configured, asks which to use.
 
 ## Setup
 
@@ -15,9 +15,10 @@ Add to Claude Code settings (`~/.claude/settings.json`):
   "env": {
     "WRITING_STYLE_GUIDE_PATH": "/path/to/style-guide.md",
     "WRITING_ANTI_PATTERNS_PATH": "/path/to/anti-patterns.md",
-    "NOTES_SOURCE": "Tweets",
-    "X_CASE_STYLE": "lowercase",
-    "X_DRAFTS_FILE": "/path/to/drafts"
+    "X_SOURCE_FILE": "/path/to/ideas.md",
+    "X_NOTES_APP_SOURCE": "Tweets",
+    "X_DRAFTS_FILE": "/path/to/posts.md",
+    "X_CASE_STYLE": "lowercase"
   }
 }
 ```
@@ -26,22 +27,10 @@ Add to Claude Code settings (`~/.claude/settings.json`):
 |----------|-------------|
 | `WRITING_STYLE_GUIDE_PATH` | Shared writing style guide for voice and tone |
 | `WRITING_ANTI_PATTERNS_PATH` | Shared anti-patterns. Overrides `references/anti-patterns.md` |
+| `X_SOURCE_FILE` | Path to a markdown file containing post ideas |
+| `X_NOTES_APP_SOURCE` | macOS Notes note name to fetch ideas from (e.g. `"Tweets"`) |
 | `X_DRAFTS_FILE` | File path for saving approved posts (default: `.x/posts.md`) |
-| `NOTES_SOURCE` | macOS Notes note name to fetch from (default: `"Tweets"`) |
 | `X_CASE_STYLE` | `"standard"` (default) or `"lowercase"` |
-
-### macOS Notes Integration
-
-```bash
-# Fetch from default note
-./scripts/fetch-notes.sh get
-
-# Fetch from a specific note
-./scripts/fetch-notes.sh get "Note Name"
-
-# List available notes
-./scripts/fetch-notes.sh list
-```
 
 ## Usage
 
@@ -49,8 +38,8 @@ Add to Claude Code settings (`~/.claude/settings.json`):
 # From pasted content
 claude "Transform these notes into X posts: [paste your notes]"
 
-# From macOS Notes
-claude "Look in my Notes for good tweet ideas"
+# From ideas file
+claude "Check my ideas and draft some posts"
 ```
 
 ## Reference Files
@@ -58,9 +47,3 @@ claude "Look in my Notes for good tweet ideas"
 - **`references/x-strategy.md`** — Content selection, formatting, engagement patterns
 - **`references/anti-patterns.md`** — AI writing patterns to avoid
 - **Shared writing style guide** (via `WRITING_STYLE_GUIDE_PATH`) — Voice, tone, banned phrases
-
-## Troubleshooting
-
-**Script permission denied:** `chmod +x scripts/fetch-notes.sh`
-
-**Can't find note:** Check exact name (case-sensitive), verify note is in default Notes account, try `./scripts/fetch-notes.sh list`

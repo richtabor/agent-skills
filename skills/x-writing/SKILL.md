@@ -9,7 +9,7 @@ description: Transforms notes into X (Twitter) posts. Triggers when user asks to
 
 Transform your notes, work updates, and observations into engaging X (Twitter) content. This skill analyzes your notes to identify the most shareable insights, then crafts authentic posts that match your voice and drive engagement.
 
-**Supports macOS Notes integration** - Automatically fetch ideas from your Notes app to draft posts.
+**Supports two idea sources** — a markdown file (`X_SOURCE_FILE`) and/or macOS Notes (`X_NOTES_APP_SOURCE`). If both are configured, asks which to use.
 
 ## Process
 
@@ -32,22 +32,14 @@ Before any other work, load the following:
 Get clarity on what notes to work with:
 
 - Ask which notes, ideas, or updates they want to transform into posts
-- **macOS Notes Integration**: When the user asks to "look in my notes" or "fetch from Notes", use `scripts/fetch-notes.sh get` to pull content from their configured Notes app note (default: "Tweets")
-- Read the source material (markdown files, text, pasted content, or Notes app content)
-- Identify the core insights, learnings, or updates
+- **Check for idea sources:**
+  - Run `echo "$X_SOURCE_FILE"` — if set, a markdown ideas file is available
+  - Run `echo "$X_NOTES_APP_SOURCE"` — if set, a macOS Notes note is available (use `scripts/fetch-notes.sh get` to fetch)
+  - If **both** are configured and the user says "check my ideas" or similar without specifying, ask which source to use
+  - If **one** is configured, use it directly
+  - If **neither** is configured, work from whatever the user provides (pasted content, markdown files, etc.)
+- Read the source material and identify the core insights, learnings, or updates
 - Note any specific tools, projects, numbers, or details mentioned
-
-**Using macOS Notes Integration:**
-```bash
-# Fetch content from default note (configured via NOTES_SOURCE env var)
-./scripts/fetch-notes.sh get
-
-# Fetch content from a specific note
-./scripts/fetch-notes.sh get "Note Name"
-
-# List all available notes
-./scripts/fetch-notes.sh list
-```
 
 **Multiple ideas/notes workflow:**
 - When the user provides multiple distinct ideas or notes, work through them ONE AT A TIME
@@ -259,6 +251,7 @@ Would you like me to:
 | `WRITING_STYLE_GUIDE_PATH` | No | Path to shared writing style guide. Loaded in Phase 1.1 |
 | `WRITING_ANTI_PATTERNS_PATH` | No | Path to shared anti-patterns. Overrides `references/anti-patterns.md` |
 | `X_DRAFTS_FILE` | No | File path for saving approved posts. Default: `.x/posts.md` |
-| `NOTES_SOURCE` | No | Name of the macOS Notes note to fetch from (default: "Tweets") |
+| `X_SOURCE_FILE` | No | Path to a markdown file containing post ideas. Read when the user asks to check ideas. |
+| `X_NOTES_APP_SOURCE` | No | macOS Notes note name to fetch ideas from (e.g. `"Tweets"`). Uses `scripts/fetch-notes.sh`. |
 | `X_CASE_STYLE` | No | `"standard"` (default) or `"lowercase"` |
 

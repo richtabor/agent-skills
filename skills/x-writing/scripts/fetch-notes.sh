@@ -4,7 +4,7 @@
 #   ./fetch-notes.sh list                    - List all notes
 #   ./fetch-notes.sh list "Folder Name"      - List notes in specific folder
 #   ./fetch-notes.sh get "Note Name"         - Get content of specific note
-#   ./fetch-notes.sh get                     - Get content from NOTES_SOURCE env var
+#   ./fetch-notes.sh get                     - Get content from X_NOTES_APP_SOURCE env var
 #   ./fetch-notes.sh recent                  - Get most recent note
 #   ./fetch-notes.sh recent 5                - Get 5 most recent notes
 
@@ -19,7 +19,7 @@ if [ -f "$ENV_FILE" ]; then
 fi
 
 # Default note name from env var or fallback to "Tweets"
-DEFAULT_NOTE="${NOTES_SOURCE:-Tweets}"
+DEFAULT_NOTE="${X_NOTES_APP_SOURCE:-Tweets}"
 
 COMMAND="${1:-list}"
 ARG="$2"
