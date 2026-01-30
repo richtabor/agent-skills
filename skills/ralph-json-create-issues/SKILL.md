@@ -9,13 +9,13 @@ Convert a Product Requirements Document or plan file into JSON for Ralph.
 
 ## Input
 
-Check both locations in this order:
+Check these locations in order:
 
 1. **`.claude/plans/`** — Where plan mode saves approved plans. Primary source.
-2. **`prds/`** — Standalone PRDs not generated from plan mode.
-3. User specifies a file directly.
+2. **`plans/`** — Project-level plans directory.
+3. **`prds/`** — Standalone PRDs not generated from plan mode.
 
-If files exist in both locations, list all and ask which to convert. If only one location has files, use it directly.
+If files exist in multiple locations, list all and ask which to convert. If only one file is found, use it directly. **If no files are found in any location, ask the user for the path to their PRD/plan file.**
 
 ## Conversion Rules
 
@@ -134,7 +134,7 @@ Generate `prds/[feature-name].json`:
 ## Process
 
 1. **Scan existing PRDs** — Read `prds/*.json` to understand the dependency landscape
-2. Read the PRD/plan markdown file from `.claude/plans/` or `prds/`
+2. Read the PRD/plan markdown file from `.claude/plans/`, `plans/`, or `prds/`
 3. Derive feature name from filename (e.g., `auth-flow.md` → `auth-flow`)
 4. **Detect dependencies** — Check for references to other PRDs in the markdown
 5. Break into right-sized stories starting at US-001

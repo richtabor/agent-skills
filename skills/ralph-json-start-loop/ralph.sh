@@ -19,7 +19,19 @@ done
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MAIN_REPO="$(git rev-parse --show-toplevel)"
 REPO_NAME="$(basename "$MAIN_REPO")"
-PRDS_DIR="$MAIN_REPO/prds"
+# Find PRD directory — check multiple locations
+PRDS_DIR=""
+for dir in "$MAIN_REPO/.claude/plans" "$MAIN_REPO/plans" "$MAIN_REPO/prds"; do
+  if [ -d "$dir" ] && ls "$dir"/*.json >/dev/null 2>&1; then
+    PRDS_DIR="$dir"
+    break
+  fi
+done
+
+if [ -z "$PRDS_DIR" ]; then
+  echo "Error: No PRD JSON files found in .claude/plans/, plans/, or prds/"
+  exit 1
+fi
 
 # Check if a project is complete (all stories pass)
 is_project_complete() {
@@ -193,12 +205,7 @@ show_dependency_graph() {
   echo ""
 }
 
-# Check prds directory exists
-if [ ! -d "$PRDS_DIR" ]; then
-  echo "Error: prds/ directory not found"
-  echo "Run /create-prd and /create-prd-json first"
-  exit 1
-fi
+echo "Using PRD directory: $PRDS_DIR"
 
 # Show dependency graph
 show_dependency_graph

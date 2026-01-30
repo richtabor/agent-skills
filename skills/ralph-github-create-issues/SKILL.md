@@ -24,8 +24,9 @@ Run these checks. Stop if critical ones fail.
 # 1. Auth check
 gh auth status
 
-# 2. Find plan/PRD files — check both locations
+# 2. Find plan/PRD files — check all locations
 ls .claude/plans/*.md 2>/dev/null
+ls plans/*.md 2>/dev/null
 ls prds/*.md 2>/dev/null
 
 # 3. PRD not already an issue (stop if found open)
@@ -40,12 +41,13 @@ gh issue list --label prd --state open --json number,title
 
 ### Where to find plans
 
-Check both locations in this order:
+Check these locations in order:
 
 1. **`.claude/plans/`** — Where plan mode saves approved plans. This is the primary source.
-2. **`prds/`** — Standalone PRDs not generated from plan mode.
+2. **`plans/`** — Project-level plans directory.
+3. **`prds/`** — Standalone PRDs not generated from plan mode.
 
-If files exist in both, list all and ask which to convert. If only one location has files, use it directly.
+If files exist in multiple locations, list all and ask which to convert. If only one file is found, use it directly. **If no files are found in any location, ask the user for the path to their PRD/plan file.**
 
 Scan PRD markdown for dependency references ("depends on X", "see `feature.md`"). Note matches for later.
 

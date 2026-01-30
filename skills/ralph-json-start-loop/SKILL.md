@@ -53,8 +53,8 @@ Projects with incomplete dependencies are blocked. Ralph picks the first ready p
 
 ## Prerequisites
 
-1. `prds/` directory with at least one `.json` file
-2. Run `/create-prd` then `/create-prd-json` first
+1. At least one `.json` PRD file in `.claude/plans/`, `plans/`, or `prds/`
+2. Use plan mode to create a plan, then run `/ralph-json-create-issues` to convert it
 
 ## Notes
 
