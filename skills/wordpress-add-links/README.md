@@ -1,6 +1,6 @@
 # WordPress Add Links
 
-Adds internal and external links to a WordPress blog post, or a markdown file. Fetches your published posts for internal link candidates, searches the web for external references, and proposes links for approval before publishing.
+Look for appropriate external links or add internal links from an existing WordPress site. Fetches your published posts for internal link candidates, searches the web for external references, and proposes links for approval before publishing.
 
 Works with local markdown files or live WordPress posts. Requires WordPress credentials in both cases (internal links are sourced from your published posts).
 
