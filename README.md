@@ -25,6 +25,10 @@ Audits components, pages, and screenshots against WCAG 2.1/2.2 Level AA. Returns
 
 Scans a blog post draft, finds relevant internal and external link opportunities, and weaves them into existing sentences without disrupting the flow.
 
+### [Create PRD](./skills/create-prd)
+
+Plans features interactively. Asks clarifying questions, then generates a detailed PRD document with user stories, acceptance criteria, and technical considerations.
+
 ### [Ralph: Create JSON Issues](./skills/ralph-json-create-issues)
 
 Converts a PRD or plan file into right-sized JSON stories for the JSON loop. Reads from `.claude/plans/`, `plans/`, or `prds/`, sizes each story to one context window, and wires up cross-PRD dependencies.
@@ -45,7 +49,7 @@ Reads each image in a markdown file, describes its content, and writes detailed 
 
 Evaluates UI animation needs and recommends specific easing curves, durations, and implementation approaches. Every animation gets a job, or it gets cut.
 
-### [Ralph: GitHub Create Issues](./skills/ralph-github-create-issues) ⭐
+### [Ralph: GitHub Create Issues](./skills/ralph-github-create-issues)
 
 Converts a PRD or plan file into GitHub Issues (parent + sub-issues). Reads from `.claude/plans/`, `plans/`, or `prds/`, sizes stories for single-context execution, and links dependencies via GitHub's native blocking. This is the workflow I use.
 
@@ -55,11 +59,15 @@ Autonomous development loop powered by GitHub Issues. Fetches open PRD issues, s
 
 ### [Ralph: JSON Create Issues](./skills/ralph-json-create-issues)
 
-Converts a PRD or plan file into right-sized JSON stories for the JSON loop. Reads from `.claude/plans/`, `plans/`, or `prds/`, sizes each story to one context window, and wires up cross-PRD dependencies. More info at [richtabor.com/ralph](https://richtabor.com/ralph).
+Converts a PRD or plan file into right-sized JSON stories for the JSON loop. Reads from `.claude/plans/`, `plans/`, or `prds/`, sizes each story to one context window, and wires up cross-PRD dependencies. Learn more at [richtabor.com/ralph](https://richtabor.com/ralph).
 
 ### [Ralph: JSON Start Loop](./skills/ralph-json-start-loop)
 
-Autonomous development loop powered by local JSON files. Picks up stories from `.claude/plans/`, `plans/`, or `prds/`, spins up git worktrees, and executes them one by one without manual intervention. More info at [richtabor.com/ralph](https://richtabor.com/ralph).
+Autonomous development loop powered by local JSON files. Picks up stories from `.claude/plans/`, `plans/`, or `prds/`, spins up git worktrees, and executes them one by one without manual intervention. Learn more at [richtabor.com/ralph](https://richtabor.com/ralph).
+
+### [Review PR](./skills/review-pr)
+
+Reviews PR comments from GitHub (Copilot, reviewers), evaluates them against actual code, replies with reasoning, and resolves threads.
 
 ### [Review AGENTS.md](./skills/review-agents-md)
 
