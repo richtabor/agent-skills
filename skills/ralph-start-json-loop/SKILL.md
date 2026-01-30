@@ -1,7 +1,8 @@
 ---
-name: ralph
+name: ralph-start-json-loop
 description: Runs the Ralph autonomous loop. Executes stories from prds/*.json using git worktrees.
-user_invocable: true
+disable-model-invocation: true
+argument-hint: "[iterations] [project-name]"
 ---
 
 # Ralph

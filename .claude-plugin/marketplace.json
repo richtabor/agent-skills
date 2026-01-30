@@ -24,9 +24,12 @@
         "./skills/humanize",
         "./skills/markdown-img-alt-text",
         "./skills/motion-design",
-        "./skills/ralph",
+        "./skills/ralph-start-json-loop",
         "./skills/technical-writing",
-        "./skills/x-writing"
+        "./skills/x-writing",
+        "./skills/skill-review",
+        "./skills/ralph-start-github-loop",
+        "./skills/ralph-create-github-issues"
       ],
       "keywords": [
         "accessibility",
