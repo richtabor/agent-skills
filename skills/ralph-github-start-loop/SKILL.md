@@ -1,5 +1,5 @@
 ---
-name: ralph-start-github-loop
+name: ralph-github-start-loop
 description: Runs autonomous loop fetching stories from GitHub Issues. Implements and closes issues as done. Triggers on "loop through my PRDs", "work on my issues", "start the autonomous loop", "implement my PRDs", or requests to work through GitHub issues autonomously.
 disable-model-invocation: true
 argument-hint: "[--all] [iterations] [prd-search]"
@@ -24,7 +24,7 @@ When running non-interactively (background mode), `--all` is auto-enabled.
 ## Prerequisites
 
 - `gh` CLI authenticated
-- PRD issues created via `/ralph-create-github-issues` (reads from `.claude/plans/` or `prds/`)
+- PRD issues created via `/ralph-github-create-issues` (reads from `.claude/plans/` or `prds/`)
 
 **Note:** Assume gh extensions are installed. Do NOT try to install them.
 

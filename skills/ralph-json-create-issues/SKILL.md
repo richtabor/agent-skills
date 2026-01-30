@@ -1,19 +1,21 @@
 ---
-name: create-prd-json
-description: Converts a PRD markdown file into prd.json format for Ralph to execute autonomously.
+name: ralph-json-create-issues
+description: Converts a PRD or plan markdown file into prd.json format for ralph-json-start-loop to execute autonomously. Use when user wants to convert a PRD or plan to JSON stories.
 ---
 
 # Create PRD JSON
 
-Convert a Product Requirements Document into JSON for Ralph.
+Convert a Product Requirements Document or plan file into JSON for Ralph.
 
 ## Input
 
-Look for PRD files in `prds/` directory:
-1. `prds/*.md` files
-2. User specifies a file
+Check both locations in this order:
 
-If multiple PRDs exist, ask which one to convert.
+1. **`.claude/plans/`** — Where plan mode saves approved plans. Primary source.
+2. **`prds/`** — Standalone PRDs not generated from plan mode.
+3. User specifies a file directly.
+
+If files exist in both locations, list all and ask which to convert. If only one location has files, use it directly.
 
 ## Conversion Rules
 
@@ -132,8 +134,8 @@ Generate `prds/[feature-name].json`:
 ## Process
 
 1. **Scan existing PRDs** — Read `prds/*.json` to understand the dependency landscape
-2. Read the PRD markdown file from `prds/`
-3. Derive feature name from filename (e.g., `prds/auth-flow.md` → `auth-flow`)
+2. Read the PRD/plan markdown file from `.claude/plans/` or `prds/`
+3. Derive feature name from filename (e.g., `auth-flow.md` → `auth-flow`)
 4. **Detect dependencies** — Check for references to other PRDs in the markdown
 5. Break into right-sized stories starting at US-001
 6. Order by dependency (set priority)
@@ -159,5 +161,5 @@ Created prds/[feature-name].json with [N] stories
 Dependencies: [list or "none"]
 Branch: ralph/[feature-name]
 
-Run: /ralph
+Run: /ralph-json-start-loop
 ```

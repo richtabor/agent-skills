@@ -23,17 +23,13 @@ Audits components, pages, and screenshots against WCAG 2.1/2.2 Level AA. Returns
 
 Scans a blog post draft, finds relevant internal and external link opportunities, and weaves them into existing sentences without disrupting the flow.
 
-### [AGENTS.md](./skills/agents-md)
-
-Generates and refactors AGENTS.md configuration files using progressive disclosure, so agents get the right instructions at the right depth.
-
 ### [Create PRD](./skills/create-prd)
 
 Walks through a feature idea with clarifying questions, then produces a structured Product Requirements Document ready for development.
 
-### [Create PRD JSON](./skills/create-prd-json)
+### [Ralph: Create JSON Issues](./skills/ralph-create-json-issues)
 
-Converts a PRD markdown file into right-sized JSON stories that Ralph can pick up and execute autonomously, one per context window.
+Converts a PRD or plan file into right-sized JSON stories for the JSON loop. Reads from `.claude/plans/` or `prds/`, sizes each story to one context window, and wires up cross-PRD dependencies.
 
 ### [Fresh Eyes](./skills/fresh-eyes)
 
@@ -51,9 +47,29 @@ Reads each image in a markdown file, describes its content, and writes detailed 
 
 Evaluates UI animation needs and recommends specific easing curves, durations, and implementation approaches. Every animation gets a job, or it gets cut.
 
-### [Ralph](./skills/ralph)
+### [Ralph: GitHub Create Issues](./skills/ralph-github-create-issues)
 
-Autonomous development loop. Picks up stories from PRD JSON files, spins up git worktrees, and executes them one by one without manual intervention.
+Converts a PRD markdown file into GitHub Issues (parent + sub-issues). Reads from `.claude/plans/` or `prds/`, sizes stories for single-context execution, and links dependencies via GitHub's native blocking.
+
+### [Ralph: GitHub Start Loop](./skills/ralph-github-start-loop)
+
+Autonomous development loop powered by GitHub Issues. Fetches open PRD issues, spins up git worktrees, implements stories, closes sub-issues on commit, and opens a PR when done.
+
+### [Ralph: JSON Create Issues](./skills/ralph-json-create-issues)
+
+Converts a PRD or plan file into right-sized JSON stories for the JSON loop. Reads from `.claude/plans/` or `prds/`, sizes each story to one context window, and wires up cross-PRD dependencies.
+
+### [Ralph: JSON Start Loop](./skills/ralph-json-start-loop)
+
+Autonomous development loop powered by local JSON files. Picks up stories from `prds/*.json`, spins up git worktrees, and executes them one by one without manual intervention.
+
+### [Review AGENTS.md](./skills/review-agents-md)
+
+Detects missing `AGENTS.md` files, creates them using progressive disclosure principles, and symlinks `CLAUDE.md`. Proactively checks new projects and handles all combinations of existing files.
+
+### [Skill Review](./skills/skill-review)
+
+Validates agent skills against the Agent Skills standard. Audits structure, frontmatter, description quality, progressive disclosure, and anti-patterns, then returns a scored report with actionable fixes.
 
 ### [Technical Writing](./skills/technical-writing)
 
@@ -77,6 +93,6 @@ skill-name/
 
 ## Credits
 
-The PRD and Ralph skills (`create-prd`, `create-prd-json`, `ralph`) are inspired by [snarktank/ralph](https://github.com/snarktank/ralph).
+The PRD and Ralph skills (`create-prd`, `ralph-json-create-issues`, `ralph-json-start-loop`, `ralph-github-start-loop`, `ralph-github-create-issues`) are inspired by [snarktank/ralph](https://github.com/snarktank/ralph).
 
 The `fresh-eyes` skill is inspired by [Jeffrey Emanuel](https://x.com/doodlestein/status/1956228999945806049).

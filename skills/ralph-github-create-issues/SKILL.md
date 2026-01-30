@@ -1,6 +1,6 @@
 ---
-name: ralph-create-github-issues
-description: Converts a PRD markdown file into GitHub Issues (parent + sub-issues) for ralph-start-github-loop to execute. Use when user wants to push PRD stories to GitHub Issues.
+name: ralph-github-create-issues
+description: Converts a PRD markdown file into GitHub Issues (parent + sub-issues) for ralph-github-start-loop to execute. Use when user wants to push PRD stories to GitHub Issues.
 ---
 
 # Create PRD Issues
@@ -133,7 +133,7 @@ Created: #50 - Feature Name
 Dependencies: Blocked by #42 (Auth Flow)
 Branch: feature/<name>
 
-Run: /ralph-start-github-loop
+Run: /ralph-github-start-loop
 ```
 
 Then ask:

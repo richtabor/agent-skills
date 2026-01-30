@@ -19,17 +19,17 @@
         "./skills/wordpress-add-links",
         "./skills/review-agents-md",
         "./skills/create-prd",
-        "./skills/create-prd-json",
+        "./skills/ralph-json-create-issues",
         "./skills/fresh-eyes",
         "./skills/humanize",
         "./skills/markdown-img-alt-text",
         "./skills/motion-design",
-        "./skills/ralph-start-json-loop",
+        "./skills/ralph-json-start-loop",
         "./skills/technical-writing",
         "./skills/x-writing",
         "./skills/skill-review",
-        "./skills/ralph-start-github-loop",
-        "./skills/ralph-create-github-issues"
+        "./skills/ralph-github-start-loop",
+        "./skills/ralph-github-create-issues"
       ],
       "keywords": [
         "accessibility",
