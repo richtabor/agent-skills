@@ -4,11 +4,13 @@ A collection of agent skills for design, engineering, writing, and product, buil
 
 ## Install
 
+Add via skills.sh
 ```bash
-# Add via skills.sh
 npx skills add richtabor/agent-skills
+```
 
-# or as a Claude Code plugin
+Or as a Claude Code [plugin]([url](https://code.claude.com/docs/en/plugins))
+```bash
 /plugin marketplace add https://github.com/richtabor/agent-skills
 /plugin install rt
 ```
