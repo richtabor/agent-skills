@@ -1,6 +1,6 @@
 ---
 name: review-agents-md
-description: Creates minimal, effective AGENTS.md files using progressive disclosure. Triggers on "create agents.md", "refactor agents.md", "review my agents.md", "claude.md", or questions about agent configuration files.
+description: Creates minimal, effective AGENTS.md files using progressive disclosure. Triggers on "create agents.md", "refactor agents.md", "review my agents.md", "claude.md", or questions about agent configuration files. Also triggers proactively when a project is missing AGENTS.md.
 ---
 
 # AGENTS.md Skill
@@ -11,10 +11,12 @@ Creates and refactors AGENTS.md files following progressive disclosure principle
 
 ## When to Use
 
+- **Proactively** when a project has no `AGENTS.md` at the root — check for this when starting work in a new project
 - Creating a new AGENTS.md from scratch
 - Refactoring a bloated AGENTS.md
 - Reviewing an existing file for best practices
 - Setting up AGENTS.md for a monorepo
+- When `AGENTS.md` exists but `CLAUDE.md` is missing (should be symlinked)
 
 ## Core Principles
 
@@ -36,6 +38,15 @@ Agent does something wrong → you add a rule → repeat hundreds of times → "
 Humans can be skeptical of outdated docs. Agents can't — they trust what they read on every request. File paths are especially dangerous since they change constantly. Describe capabilities and domain concepts instead.
 
 ## Process
+
+### Phase 0: Detect Missing Files
+
+Check the project root for `AGENTS.md` and `CLAUDE.md`:
+
+1. If **neither** exists, offer to create `AGENTS.md` and symlink `CLAUDE.md` to it
+2. If `AGENTS.md` exists but `CLAUDE.md` does not, create the symlink: `ln -s AGENTS.md CLAUDE.md`
+3. If `CLAUDE.md` exists but `AGENTS.md` does not, rename it to `AGENTS.md` and create a symlink: `mv CLAUDE.md AGENTS.md && ln -s AGENTS.md CLAUDE.md`
+4. If both exist but `CLAUDE.md` is not a symlink to `AGENTS.md`, merge any unique content into `AGENTS.md`, remove the standalone `CLAUDE.md`, and create the symlink
 
 ### Phase 1: Assess Current State
 
@@ -186,11 +197,13 @@ AGENTS.md is an open standard supported by 20+ tools including:
 - **Zed**, **Warp**, **VS Code**
 - **Aider**, **goose**, **RooCode**
 
-**Claude Code** uses `CLAUDE.md` instead. Always use `AGENTS.md` as the source of truth and symlink for Claude:
+**Claude Code** uses `CLAUDE.md` instead. `AGENTS.md` is always the source of truth. `CLAUDE.md` must always be a symlink pointing to it:
 
 ```bash
 ln -s AGENTS.md CLAUDE.md
 ```
+
+Never create a standalone `CLAUDE.md`. Never put content in `CLAUDE.md` that isn't in `AGENTS.md`.
 
 ## Resources
 
