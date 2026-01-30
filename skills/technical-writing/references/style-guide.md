@@ -44,7 +44,7 @@ A reference for capturing a distinctive voice across blog posts, essays, and pro
 - ❌ *"Why I Stopped Using Feature Flags"* (too formal)
 - ❌ *"I Changed My Mind About React Server Components"* (too formal)
 
-**Note:** This can be configured via `TITLE_CASE_STYLE` environment variable (defaults to "sentence" if not set).
+**Note:** This can be configured via `WRITING_TITLE_CASE_STYLE` environment variable (defaults to "sentence" if not set).
 
 **What to lead with:** Choose one:
 
@@ -120,7 +120,7 @@ A reference for capturing a distinctive voice across blog posts, essays, and pro
 - ❌ *"How We Built It"* (too formal)
 - ❌ *"The Technical Details"* (too formal)
 
-**Note:** This can be configured via `HEADING_CASE_STYLE` environment variable (defaults to "sentence" if not set).
+**Note:** This can be configured via `WRITING_HEADING_CASE_STYLE` environment variable (defaults to "sentence" if not set).
 
 **Bold for key phrases in advice posts.** When listing principles, bold the main point then explain it.
 

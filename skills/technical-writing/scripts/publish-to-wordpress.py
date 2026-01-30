@@ -70,12 +70,12 @@ def load_env_file():
 
 def get_post_mapping_file():
     """Get path to the post mapping file."""
-    # Mapping file is stored in .blog directory
+    # Mapping file is stored in .drafts directory
     # Script is at: .claude/skills/dev-blog/scripts/publish-to-wordpress.py
     # Need to go up 4 levels to get to project root
     script_dir = Path(__file__).parent  # .claude/skills/dev-blog/scripts
     project_root = script_dir.parent.parent.parent.parent  # project root
-    blog_dir = project_root / '.blog'
+    blog_dir = project_root / '.drafts'
     return blog_dir / 'wordpress.json'
 
 
@@ -94,10 +94,10 @@ def load_post_mappings():
 def get_relative_path(markdown_file):
     """Get relative path from project root."""
     abs_path = Path(markdown_file).resolve()
-    # Find project root (contains .blog directory)
+    # Find project root (contains .drafts directory)
     current = abs_path.parent
     while current != current.parent:
-        if (current / '.blog').exists():
+        if (current / '.drafts').exists():
             try:
                 return str(abs_path.relative_to(current))
             except ValueError:
@@ -107,35 +107,96 @@ def get_relative_path(markdown_file):
     return str(abs_path)
 
 
-def save_post_mapping(markdown_file, post_id, post_url):
-    """Save a mapping of markdown file to WordPress post ID."""
+def save_post_mapping(markdown_file, post_id, post_url, slug=None):
+    """Save a mapping of markdown file to WordPress post ID.
+
+    Uses the frontmatter slug as the primary key if available,
+    with file path as fallback for backwards compatibility.
+    """
     mapping_file = get_post_mapping_file()
     mappings = load_post_mappings()
 
-    # Use relative path from project root for portability
-    relative_path = get_relative_path(markdown_file)
-
-    mappings[relative_path] = {
+    entry = {
         "post_id": post_id,
         "post_url": post_url,
         "last_updated": datetime.now().isoformat()
     }
 
-    # Ensure .blog directory exists
+    # Primary key: slug from frontmatter url (stable across file moves)
+    if slug:
+        mappings[slug] = entry
+
+    # Also store by file path for backwards compatibility
+    relative_path = get_relative_path(markdown_file)
+    mappings[relative_path] = entry
+
+    # Ensure .drafts directory exists
     mapping_file.parent.mkdir(parents=True, exist_ok=True)
 
     with open(mapping_file, 'w') as f:
         json.dump(mappings, f, indent=2)
 
 
-def get_existing_post_id(markdown_file):
-    """Get the WordPress post ID for a markdown file, if it exists."""
-    mappings = load_post_mappings()
-    relative_path = get_relative_path(markdown_file)
+def get_existing_post_id(markdown_file, slug=None):
+    """Get the WordPress post ID for a markdown file, if it exists.
 
+    Checks slug first (stable), then falls back to file path.
+    """
+    mappings = load_post_mappings()
+
+    # Check by slug first (survives file moves/renames)
+    if slug and slug in mappings:
+        return mappings[slug].get('post_id')
+
+    # Fall back to file path
+    relative_path = get_relative_path(markdown_file)
     if relative_path in mappings:
         return mappings[relative_path].get('post_id')
+
     return None
+
+
+def parse_frontmatter(content):
+    """Parse YAML frontmatter from markdown content.
+
+    Returns (metadata_dict, content_without_frontmatter).
+    """
+    if not content.startswith('---'):
+        return {}, content
+
+    end = content.find('---', 3)
+    if end == -1:
+        return {}, content
+
+    frontmatter_text = content[3:end].strip()
+    body = content[end + 3:].strip()
+
+    metadata = {}
+    current_key = None
+    current_list = None
+
+    for line in frontmatter_text.split('\n'):
+        stripped = line.strip()
+        # List item (e.g. "  - Development")
+        if stripped.startswith('- ') and current_key:
+            if current_list is None:
+                current_list = []
+            current_list.append(stripped[2:].strip())
+            metadata[current_key] = current_list
+            continue
+
+        # Save any in-progress list
+        current_list = None
+
+        if ':' in stripped:
+            key, _, value = stripped.partition(':')
+            current_key = key.strip()
+            value = value.strip()
+            if value:
+                metadata[current_key] = value
+            # If value is empty, it might be followed by a list
+
+    return metadata, body
 
 
 def extract_title_from_markdown(content):
@@ -329,20 +390,41 @@ def publish_to_wordpress(markdown_file_path, tags=None):
             "error": f"Error reading file: {str(e)}"
         }
 
-    # Extract title and convert to HTML
-    title = extract_title_from_markdown(markdown_content)
+    # Parse frontmatter if present
+    metadata, body = parse_frontmatter(markdown_content)
 
-    # Remove the title from content (first H1)
-    content_lines = markdown_content.split('\n')
-    content_without_title = []
-    title_removed = False
-    for line in content_lines:
-        if not title_removed and line.strip().startswith('# '):
-            title_removed = True
-            continue
-        content_without_title.append(line)
+    # Get title from frontmatter, fall back to first H1
+    title = metadata.get('title', extract_title_from_markdown(markdown_content))
 
-    markdown_content_final = '\n'.join(content_without_title).strip()
+    # Get slug from url frontmatter field (strip leading slash)
+    slug = metadata.get('url', '').lstrip('/')
+
+    # Use frontmatter tags if no CLI tags provided
+    if not tags:
+        fm_tags = metadata.get('tags')
+        if isinstance(fm_tags, list):
+            tags = fm_tags
+
+    # If frontmatter was parsed, body already excludes it.
+    # Otherwise strip the first H1 from content.
+    if metadata:
+        markdown_content_final = body
+    else:
+        content_lines = markdown_content.split('\n')
+        content_without_title = []
+        title_removed = False
+        for line in content_lines:
+            if not title_removed and line.strip().startswith('# '):
+                title_removed = True
+                continue
+            content_without_title.append(line)
+        markdown_content_final = '\n'.join(content_without_title).strip()
+
+    # Also strip H1 from body if it matches the frontmatter title
+    if metadata and markdown_content_final.lstrip().startswith('# '):
+        first_line = markdown_content_final.lstrip().split('\n', 1)[0]
+        if first_line.startswith('# '):
+            markdown_content_final = markdown_content_final.lstrip().split('\n', 1)[-1].strip()
 
     # Remove the "Tags:" line at the end if present
     # Matches patterns like: **Tags:** tag1, tag2, tag3
@@ -363,7 +445,17 @@ def publish_to_wordpress(markdown_file_path, tags=None):
 
     # Fetch categories from WordPress
     categories = fetch_wordpress_categories(wordpress_url, headers)
-    suggested_category = suggest_category(categories, title, tags)
+
+    # Use frontmatter category if provided, otherwise auto-suggest
+    fm_category = metadata.get('category', '')
+    suggested_category = None
+    if fm_category and categories:
+        for cat in categories:
+            if cat['name'].lower() == fm_category.lower():
+                suggested_category = cat
+                break
+    if not suggested_category:
+        suggested_category = suggest_category(categories, title, tags)
 
     # Prepare post data (always as draft)
     post_data = {
@@ -372,6 +464,10 @@ def publish_to_wordpress(markdown_file_path, tags=None):
         "status": "draft",
         "format": "standard"
     }
+
+    # Set slug from frontmatter url field
+    if slug:
+        post_data["slug"] = slug
 
     # Debug: print content length
     print(f"DEBUG: Sending {len(block_content)} characters of block content", file=sys.stderr)
@@ -422,7 +518,7 @@ def publish_to_wordpress(markdown_file_path, tags=None):
             post_data["tags"] = tag_ids
 
     # Check if this markdown file already has a WordPress post
-    existing_post_id = get_existing_post_id(markdown_file_path)
+    existing_post_id = get_existing_post_id(markdown_file_path, slug=slug)
 
     if existing_post_id:
         # Update existing post
@@ -443,7 +539,7 @@ def publish_to_wordpress(markdown_file_path, tags=None):
             post = response.json()
 
             # Save the mapping for future updates
-            save_post_mapping(markdown_file_path, post["id"], post["link"])
+            save_post_mapping(markdown_file_path, post["id"], post["link"], slug=slug)
 
             result = {
                 "success": True,

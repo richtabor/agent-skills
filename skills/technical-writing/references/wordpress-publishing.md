@@ -34,7 +34,7 @@ pip install requests markdown2
 
 ## Publishing Your Post
 
-After creating a blog post (automatically saved to `.blog/`), you can save it to WordPress as a draft:
+After creating a blog post (automatically saved to `.drafts/`), you can save it to WordPress as a draft:
 
 **Save to WordPress:**
 ```
@@ -52,7 +52,7 @@ Update the voice planner post on WordPress
 ```
 
 The script will automatically:
-1. **Check if the post already exists** (tracks via `.blog/wordpress.json`)
+1. **Check if the post already exists** (tracks via `.drafts/wordpress.json`)
 2. If exists: **Update the existing draft** (no duplicate posts!)
 3. If new: Create new draft and save the mapping
 4. Extract the title from the first H1 heading in your markdown
@@ -66,14 +66,14 @@ The script will automatically:
 - First time saving: Creates new WordPress draft post
 - Subsequent saves: Updates the same WordPress post
 - No duplicate posts - each markdown file maps to one WordPress post
-- Mapping stored in `.blog/wordpress.json`
+- Mapping stored in `.drafts/wordpress.json`
 
 ## How It Works
 
 When you ask to save to WordPress, the skill runs:
 
 ```bash
-python scripts/publish-to-wordpress.py .blog/2025-12-29-voice-planner.md --tags nextjs,voice-ai
+python scripts/publish-to-wordpress.py .drafts/2025-12-29-voice-planner.md --tags nextjs,voice-ai
 ```
 
 **First time (creates new post):**
@@ -111,8 +111,8 @@ python scripts/publish-to-wordpress.py .blog/2025-12-29-voice-planner.md --tags 
 Notice the post_id stays the same (123) - it updates the existing post instead of creating duplicates.
 
 **Workflow:**
-1. All blog drafts are stored in `.blog/` with date-based filenames
-2. Mapping of markdown files to WordPress posts is tracked in `.blog/wordpress.json`
+1. All blog drafts are stored in `.drafts/` with date-based filenames
+2. Mapping of markdown files to WordPress posts is tracked in `.drafts/wordpress.json`
 3. First save creates a new WordPress draft
 4. Subsequent saves update the same WordPress draft
 5. You can preview, edit, and publish from WordPress admin when ready
