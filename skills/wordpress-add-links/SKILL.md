@@ -1,17 +1,15 @@
-# Content Links
+# WordPress Add Links
 
-Add internal and external links to a blog post draft, naturally woven into existing sentences.
+Find and add internal and external links to a blog post draft, naturally woven into existing sentences.
 
 ## Trigger
 
-- "add links to this content"
-- "add links to this post"
+- "find links for this post"
 - "find internal links"
+- "add links to this post"
 - "link this draft"
 
 ## Environment Variables
-
-Reuses credentials from `technical-writing`:
 
 - `WORDPRESS_URL` — Blog base URL (e.g. `https://yourblog.com`)
 - `WORDPRESS_USERNAME` — WordPress account username
