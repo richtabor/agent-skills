@@ -1,68 +1,59 @@
-# Skills
+# Agent Skills
 
-A collection of custom skills built on the open [Agent Skills](https://agentskills.io) standard.
+A collection of agent skills for design, engineering, writing, and product, built on the open [Agent Skills](https://agentskills.io/) standard.
 
-## Quick Install (Claude Code)
+## Install
 
 ```bash
-# Add the marketplace
-/plugin marketplace add richtabor/skills
+# Add via skills.sh
+npx skills add richtabor/agent-skills
 
-# Install plugins
-/plugin install writing@richtabor-skills
-/plugin install development@richtabor-skills
+# or as a Claude Code plugin
+/plugin marketplace add https://github.com/richtabor/agent-skills
+/plugin install rt
 ```
-
-## Available Plugins
-
-| Plugin | Skills | Description |
-|--------|--------|-------------|
-| `writing` | [technical-writing](./skills/technical-writing), [x-writing](./skills/x-writing) | Writing skills for technical blog posts and social content |
-| `development` | [accessibility-review](./skills/accessibility-review), [fresh-eyes](./skills/fresh-eyes), [motion-design](./skills/motion-design) | Development skills including accessibility reviews, fresh-eyes code review, and motion design |
 
 ## Available Skills
 
-| Skill | Description |
-|-------|-------------|
-| [accessibility-review](./skills/accessibility-review) | Conducts manual accessibility reviews of UI components, pages, and applications against WCAG 2.1/2.2 Level AA standards. Provides prioritized findings (Critical/Warning) focused on practical, modern web accessibility standards. |
-| [fresh-eyes](./skills/fresh-eyes) | Re-reads code you just wrote with fresh perspective to catch bugs, errors, and issues. Fixes problems immediately without asking. |
-| [technical-writing](./skills/technical-writing) | Writes technical blog posts about features being built. Analyzes codebase, avoids AI-sounding language, and can publish directly to WordPress. Supports sentence case titles and headings for a conversational tone. |
-| [motion-design](./skills/motion-design) | Designs intentional motion for product UI. Evaluates interaction purpose and frequency, then recommends specific easing curves, durations, and implementation approaches (with anti-patterns to avoid). |
-| [x-writing](./skills/x-writing) | Transforms notes into engaging X (Twitter) posts. Analyzes notes to identify shareable insights and crafts authentic posts that match your voice and drive engagement. Supports macOS Notes integration. |
+### [Accessibility Review](./skills/accessibility-review)
 
-## Cross-Platform Support
+Reviews UI for accessibility issues against WCAG 2.1/2.2 Level AA. Provides prioritized findings (Critical/Warning) focused on practical, modern web accessibility.
 
-These skills work with any compatible agent:
+### [Add Links](./skills/add-links)
 
-- [Claude Code](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) and Claude API
-- [OpenAI Codex](https://developers.openai.com/codex/skills/)
-- [GitHub Copilot](https://github.blog/changelog/2025-12-18-github-copilot-now-supports-agent-skills/)
-- [Cursor](https://cursor.com/docs/context/skills) (nightly channel)
+Adds links to markdown content.
 
-### Manual Installation
+### [Create PRD](./skills/create-prd)
 
-Copy skills to the appropriate location for your platform:
+Plans features interactively. Asks clarifying questions, then generates a detailed PRD document.
 
-| Agent | User-level | Repo-level |
-|-------|------------|------------|
-| Claude Code | `~/.claude/skills/` | `.claude/skills/` |
-| OpenAI Codex | `~/.codex/skills/` | `.codex/skills/` |
-| GitHub Copilot | — | `.github/skills/` or `.claude/skills/` |
-| Cursor | — | [See docs](https://cursor.com/docs/context/skills) |
+### [Create PRD JSON](./skills/create-prd-json)
 
-Example:
-```bash
-cp -r skills/technical-writing ~/.claude/skills/
-```
+Converts a PRD markdown file into prd.json format for autonomous execution.
 
-## What Are Skills?
+### [Fresh Eyes](./skills/fresh-eyes)
 
-Skills are modular packages that transform a general-purpose AI agent into a specialized one. They load on-demand via progressive disclosure and provide:
+Re-reads code you just wrote with fresh perspective to catch bugs, errors, and issues. Fixes problems immediately without asking.
 
-- **Specialized workflows** — Multi-step procedures for specific domains
-- **Tool integrations** — Scripts and APIs for complex tasks
-- **Domain expertise** — Knowledge, schemas, and business logic
-- **Bundled resources** — References, templates, and assets
+### [Markdown Image Alt Text](./skills/markdown-img-alt-text)
+
+Adds detailed alt text to markdown image embeds. Supports Obsidian wiki-style and standard markdown formats.
+
+### [Motion Design](./skills/motion-design)
+
+Designs intentional motion for product UI. Recommends easing curves, durations, and implementation approaches.
+
+### [Ralph](./skills/ralph)
+
+Runs an autonomous development loop. Executes stories from PRD JSON files using git worktrees.
+
+### [Technical Writing](./skills/technical-writing)
+
+Writes technical blog posts about features being built. Supports WordPress publishing.
+
+### [X Writing](./skills/x-writing)
+
+Transforms notes into X (Twitter) posts. Identifies shareable insights and crafts authentic posts. Supports macOS Notes integration.
 
 ## Structure
 
@@ -74,14 +65,6 @@ skill-name/
 ├── references/           # Optional: Documentation loaded as needed
 ├── scripts/              # Optional: Executable code
 └── assets/               # Optional: Templates, images, etc.
-```
-
-## Setup
-
-Some skills require environment variables. Copy the example file and add your credentials:
-
-```bash
-cp skills/skill-name/.env.example skills/skill-name/.env.local
 ```
 
 ## Credits
