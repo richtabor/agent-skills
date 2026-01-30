@@ -131,8 +131,6 @@ Key Files Referenced:
 - src/lib/github.ts:107 (GitHub atomic commits)
 
 Word Count: ~850 words
-
-Would you like me to adjust the tone, add more technical detail, or publish this to WordPress?
 ```
 
 ## Tips for Best Results
