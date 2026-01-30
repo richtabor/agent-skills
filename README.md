@@ -39,6 +39,10 @@ Converts a PRD markdown file into prd.json format for autonomous execution.
 
 Re-reads code you just wrote with fresh perspective to catch bugs, errors, and issues. Fixes problems immediately without asking.
 
+### [Humanize](./skills/humanize)
+
+Reviews and edits copy to remove AI-generated patterns and make text sound natural.
+
 ### [Markdown Image Alt Text](./skills/markdown-img-alt-text)
 
 Adds detailed alt text to markdown image embeds. Supports Obsidian wiki-style and standard markdown formats.
