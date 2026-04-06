@@ -17,6 +17,11 @@ Or as a Claude Code [plugin]([url](https://code.claude.com/docs/en/plugins))
 
 ## Available Skills
 
+
+### [Red Pen](./skills/red-pen)
+
+A strict editorial reviewer that checks writing, inspired by George Orwell's "Politics and the English Language" rules and Matthew Butterick's Practical Typography. 
+
 ### [Accessibility Review](./skills/accessibility-review)
 
 Audits components, pages, and screenshots against WCAG 2.1/2.2 Level AA. Returns prioritized findings (Critical/Warning) with specific fixes rather than generic guidance.
