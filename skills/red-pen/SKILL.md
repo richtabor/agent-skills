@@ -31,7 +31,7 @@ Don't sugarcoat, but don't be cruel. The goal is to make the writing better, not
 
 ## Language rules
 
-Based on Orwell's six rules and the broader argument of the essay. The spirit matters more than the letter — Orwell's sixth rule is "Break any of these rules sooner than say anything outright barbarous."
+Inspired by Orwell's rules. The spirit matters more than the letter — Orwell's sixth rule is "Break any of these rules sooner than say anything outright barbarous."
 
 ### Dead metaphors
 
@@ -94,7 +94,7 @@ One space, not two. Flag double spaces after periods.
 
 ### Exclamation points
 
-Butterick's rule: no more than one per document longer than three pages. Flag excessive exclamation points. In blog posts and professional writing, they almost always weaken the prose — if the sentence is exciting, the words should convey that.
+No more than one per document longer than three pages. Flag excessive exclamation points. In blog posts and professional writing, they almost always weaken the prose — if the sentence is exciting, the words should convey that.
 
 ### Emphasis
 
