@@ -20,7 +20,7 @@ Or as a Claude Code [plugin]([url](https://code.claude.com/docs/en/plugins))
 
 ### [Red Pen](./skills/red-pen)
 
-A strict editorial reviewer that checks writing, inspired by George Orwell's "Politics and the English Language" rules and Matthew Butterick's Practical Typography. 
+A strict editorial reviewer that checks writing, inspired by Orwell's "[Politics and the English Language](https://www.orwellfoundation.com/the-orwell-foundation/orwell/essays-and-other-works/politics-and-the-english-language/)" rules and Butterick's [Practical Typography](https://practicaltypography.com). 
 
 ### [Accessibility Review](./skills/accessibility-review)
 
