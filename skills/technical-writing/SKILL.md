@@ -1,13 +1,9 @@
 ---
 name: technical-writing
-description: Writes technical blog posts about features being built. Triggers when user asks to write about development progress, implementations, or project updates.
+description: "Writes technical blog posts about features being built, analyzing the codebase for implementation details and structuring engaging content. Use when the user asks to write a blog post, devlog, tech write-up, feature announcement, or development update. Triggers on 'write a blog post', 'technical blog', 'devlog', 'write about this feature', or 'project update post'."
 ---
 
-# Technical Writing Skill
-
-## Overview
-
-Create technical blog posts about features you're building. This skill analyzes your codebase to understand implementations, then structures clear, engaging content that balances technical detail with readability while avoiding AI-sounding language.
+# Technical Writing
 
 ## Process
 
@@ -199,14 +195,6 @@ Configure in Claude Code settings (`~/.claude/settings.json`) under the `env` ke
 | `WORDPRESS_APP_PASSWORD` | For publishing | Application password (not regular password) |
 | `WRITING_TITLE_CASE_STYLE` | No | `"sentence"` (default) or `"title"` |
 | `WRITING_HEADING_CASE_STYLE` | No | `"sentence"` (default) or `"title"` |
-
-## Tips for Best Results
-
-1. **Be specific about scope**: "Write about the webhook security implementation" is better than "write about webhooks"
-2. **Mention target audience**: "For developers familiar with Next.js" vs "For non-technical readers"
-3. **Specify length preference**: "Quick 500-word update" vs "Detailed deep-dive"
-4. **Share context**: "This is part 2 in a series" or "First post about this project"
-5. **Request revisions**: After the draft, ask to expand sections, simplify explanations, or adjust tone
 
 ## Advanced: Series Posts
 

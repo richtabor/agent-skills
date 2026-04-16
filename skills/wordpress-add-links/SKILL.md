@@ -1,13 +1,11 @@
+---
+name: wordpress-add-links
+description: "Scans a blog post draft, finds relevant internal and external link opportunities, and weaves them into existing sentences. Use when the user asks to find links, add links, link a draft, or improve internal linking. Triggers on 'find links', 'add links to this post', 'internal links', 'link this draft', or 'link opportunities'."
+---
+
 # WordPress Add Links
 
 Find and add internal and external links to a blog post draft, naturally woven into existing sentences.
-
-## Trigger
-
-- "find links for this post"
-- "find internal links"
-- "add links to this post"
-- "link this draft"
 
 ## Environment Variables
 

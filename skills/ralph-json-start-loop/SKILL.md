@@ -1,8 +1,6 @@
 ---
 name: ralph-json-start-loop
-description: Runs the Ralph autonomous loop. Executes stories from prds/*.json using git worktrees.
-disable-model-invocation: true
-argument-hint: "[iterations] [project-name]"
+description: "Autonomous development loop powered by local JSON files. Picks up stories from prds/*.json, creates git worktrees, and executes them one by one. Use when the user asks to run Ralph, start the autonomous loop, execute stories from PRDs, or work through JSON tasks. Triggers on 'run ralph', 'start the loop', 'execute my PRDs', or 'autonomous mode'."
 ---
 
 # Ralph
@@ -19,7 +17,7 @@ Run the autonomous loop to execute features from `prds/` directory.
 
 ## Process
 
-Run the loop script in background mode:
+1. Run the loop script in background mode:
 
 ```bash
 ~/.claude/skills/ralph/ralph.sh [iterations] [project-name]
@@ -27,16 +25,17 @@ Run the loop script in background mode:
 
 Use `run_in_background: true` to prevent timeout. After starting, tell the user to check progress with `tail -f <worktree>/.ralph-progress.txt`.
 
-### What It Does
+2. The script shows the dependency graph, finds the next available project, and creates a git worktree at `../{repo}-{feature}/`.
 
-1. Shows dependency graph, finds next available project
-2. Creates git worktree at `../{repo}-{feature}/`
-3. For each iteration:
-   - Picks first story where `passes: false`
-   - Implements it, runs quality checks
-   - Commits: `feat: [id] - [title]`
-   - Updates JSON, syncs back to main repo
-4. When all stories pass, outputs `<promise>COMPLETE</promise>`
+3. For each iteration, it picks the first story where `passes: false`, implements it, runs quality checks, commits (`feat: [id] - [title]`), and syncs back to the main repo.
+
+4. When all stories pass, outputs `<promise>COMPLETE</promise>`.
+
+### Error Handling
+
+- If `gh auth status` fails, stop and ask the user to run `gh auth login`.
+- If the worktree already exists, warn and ask whether to reuse or clean up.
+- If a story fails quality checks after implementation, log the failure and move to the next story.
 
 ### Dependencies
 

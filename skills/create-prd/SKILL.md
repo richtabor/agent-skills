@@ -1,6 +1,6 @@
 ---
 name: create-prd
-description: Plan features interactively. Asks clarifying questions, then generates a detailed PRD document.
+description: "Plans features interactively by asking clarifying questions, then generates a detailed PRD with user stories and acceptance criteria. Use when the user asks to plan a feature, write a PRD, create a product requirements document, draft a feature spec, or break down requirements. Triggers on 'create PRD', 'plan this feature', 'product requirements', 'feature spec', or 'write requirements'."
 ---
 
 # Create PRD
@@ -74,7 +74,11 @@ How to measure if this feature is successful.
 Any unresolved decisions.
 ```
 
-### 4. Save PRD
+### 4. Review with User
+
+Present the PRD to the user for review before saving. If they request changes, iterate until they approve.
+
+### 5. Save PRD
 
 Save to `prds/[feature-name].md` (create `prds/` directory if needed).
 
