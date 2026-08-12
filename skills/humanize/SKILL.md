@@ -5,7 +5,7 @@ description: Reviews and edits copy to remove AI-generated patterns and make tex
 
 # Humanize
 
-Review and edit copy to remove signs of AI-generated writing. Based on Wikipedia's "Signs of AI writing" guide maintained by WikiProject AI Cleanup. Contains 30 rules across 6 categories.
+Review and edit copy to remove signs of AI-generated writing. Based on Wikipedia's "Signs of AI writing" guide, updated with 2026 findings from The Economist's LLM-vs-human prose study. Contains 31 rules across 6 categories.
 
 ## When to Apply
 
@@ -22,8 +22,8 @@ Review and edit copy to remove signs of AI-generated writing. Based on Wikipedia
 - Do not imply a source ("according to…") unless you can name it from the input.
 - Keep genre and audience intact (e.g., neutral encyclopedic tone vs. personal essay). Use `voice-soul` only when that voice fits.
 - Don't rewrite quoted material unless the user asked to rewrite the quote itself.
-- Avoid em dashes (—). Replace with commas, periods, or parentheses.
-- **Don't introduce new AI patterns.** Your rewrite must pass the same rules you're applying. Common traps: "Here's the thing:", "It's not about X, it's about Y", formulaic hooks that try to sound casual.
+- Don't cluster em dashes. A single dash is fine; a string of them still reads as Claude. Prefer commas, periods, or parentheses when thinning dash-heavy copy.
+- **Don't introduce new AI patterns.** Your rewrite must pass the same rules you're applying. Common traps: "Here's the thing:", "It's not about X, it's about Y", formulaic hooks that try to sound casual, long `and`-chains, Latinate padding (`significant`, `methodology`).
 
 ## Rule Categories
 
@@ -31,7 +31,7 @@ Review and edit copy to remove signs of AI-generated writing. Based on Wikipedia
 |----------|--------|--------|-------|
 | Content | HIGH | `content-` | 6 |
 | Language | HIGH | `language-` | 8 |
-| Style | MEDIUM | `style-` | 7 |
+| Style | MEDIUM | `style-` | 8 |
 | Communication | HIGH | `comm-` | 3 |
 | Filler | MEDIUM | `filler-` | 5 |
 | Voice | HIGH | `voice-` | 1 |
@@ -49,7 +49,7 @@ Review and edit copy to remove signs of AI-generated writing. Based on Wikipedia
 
 ### Language (HIGH)
 
-- `language-ai-vocabulary` — Replace delve, showcase, leverage, foster
+- `language-ai-vocabulary` — Cut current tells (`significant`, `methodology`, nominalisations), not just delve/tapestry
 - `language-dual-adjectives` — Remove "innovative and comprehensive" padding
 - `language-copula` — Use "is" instead of "serves as", "stands as"
 - `language-contractions` — Prefer contractions when genre allows
@@ -60,7 +60,8 @@ Review and edit copy to remove signs of AI-generated writing. Based on Wikipedia
 
 ### Style (MEDIUM)
 
-- `style-em-dash` — Replace em dashes with commas or periods
+- `style-em-dash` — Thin clustered em dashes; don't treat a single dash as a fail
+- `style-punctuation-sparsity` — Restore commas, asides, and short sentences; break long `and` chains
 - `style-boldface` — Reduce mechanical bold emphasis
 - `style-inline-headers` — Avoid mechanical **Header:** lists; keep when they improve skimming
 - `style-title-case` — Use sentence case in headings
@@ -105,7 +106,7 @@ Category       | Before | After | Notes
 ---------------|--------|-------|-------------------------------
 Content        |     94 |   100 | 2 violations fixed
 Language       |     88 |    97 | dual-adjectives, copula
-Style          |     85 |   100 | 4 em dashes, tightened headers
+Style          |     85 |   100 | and-chains broken, tightened headers
 Communication  |    100 |   100 | —
 Filler         |     95 |   100 | "Here's the thing" removed
 Voice          |     91 |    94 | rhythm, contractions
@@ -145,4 +146,4 @@ Provide:
 
 ## Reference
 
-Based on [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing).
+Based on [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) and The Economist, [How to spot AI writing](https://www.economist.com/culture/2026/07/30/how-to-spot-ai-writing) (30 Jul 2026). Live overused-word lists: [AI Word Explorer](https://www.aiwordexplorer.com/).

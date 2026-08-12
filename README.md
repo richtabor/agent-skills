@@ -44,7 +44,7 @@ Re-reads code you just wrote as if seeing it for the first time. Catches off-by-
 
 ### [Humanize](./skills/humanize)
 
-Rewrites AI-generated text so it reads like a person wrote it. Applies 30 rules across 6 categories based on Wikipedia's AI writing patterns guide, preserving meaning while removing robotic phrasing.
+Rewrites AI-generated text so it reads like a person wrote it. Applies 31 rules across 6 categories based on Wikipedia's AI writing patterns guide and 2026 LLM-vs-human prose findings, preserving meaning while removing robotic phrasing.
 
 ### [Markdown Image Alt Text](./skills/markdown-img-alt-text)
 
